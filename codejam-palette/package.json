@@ -1,0 +1,34 @@
+{
+  "name": "codejam-palette",
+  "version": "1.0.0",
+  "description": "RS-school homework: codejam-palette",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3"
+  },
+  "author": "IgorBarbashov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
+    "csscomb": "^4.3.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "htmlhint": "^0.11.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

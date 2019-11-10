@@ -1,0 +1,71 @@
+.aside-left {
+  float: left;
+  width: 290px;
+  padding: 80px 30px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: $text-grey;
+
+  &__tools,
+  &__colors {
+    height: 250px;
+
+    background: $text-white;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
+  }
+
+  &__colors {
+    margin-top: 90px;
+  }
+
+  .aside-left__tool,
+  .aside-left__color {
+    height: 60px;
+  }
+
+  .aside-left__tool-icon,
+  .aside-left__color-example {
+    display: inline-block;
+    width: 25px;
+    margin-left: 20px;
+
+    line-height: 60px;
+  }
+
+  .aside-left__tool-name,
+  .aside-left__color-name {
+    display: inline-block;
+    margin-left: 35px;
+
+    line-height: 60px;
+  }
+
+  .aside-left__color-example {
+    width: 20px;
+    height: 20px;
+
+    border: 1px solid $text-black;
+    border-radius: 50%;
+
+    &.color-example {
+      &_current {
+        background: $default-current;
+      }
+
+      &_prev {
+        background: $default-prev;
+      }
+
+      &_pre-install-1 {
+        background: $pre-install-1;
+      }
+
+      &_pre-install-2 {
+        background: $pre-install-2;
+      }
+    }
+  }
+}
