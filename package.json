@@ -1,0 +1,27 @@
+{
+  "name": "igorbarbashov-rs2019q3",
+  "version": "1.0.0",
+  "description": "Private repository for @igorbarbashov",
+  "scripts": {
+    "lint": "eslint ./**/*.js",
+    "lint:fix": "eslint ./**/*.js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3.git"
+  },
+  "author": "IgorBarbashov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3#readme",
+  "devDependencies": {
+    "csscomb": "^4.3.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "htmlhint": "^0.11.0",
+    "prettier": "^1.19.1"
+  }
+}
