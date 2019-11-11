@@ -49,4 +49,35 @@ function getPixelColor(x, y) {
   return state.currentColor;
 }
 
-export { drawCanvas, drawImage, getPixelColor };
+function fillArea(i, j) {
+  state.isDrawing = true;
+  const { currentSize, currentCanvasState, currentColor } = state;
+  const fillFrom = currentCanvasState[i][j];
+  const fillTo = currentColor.slice(1);
+  if (fillFrom.toLowerCase() === fillTo.toLowerCase()) {
+    return;
+  }
+  function fillCell(x, y) {
+    currentCanvasState[x][y] = fillTo;
+    drawCanvas();
+    if (x + 1 < currentSize && currentCanvasState[x + 1][y] === fillFrom) {
+      fillCell(x + 1, y);
+    }
+    if (x - 1 >= 0 && currentCanvasState[x - 1][y] === fillFrom) {
+      fillCell(x - 1, y);
+    }
+    if (y + 1 < currentSize && currentCanvasState[x][y + 1] === fillFrom) {
+      fillCell(x, y + 1);
+    }
+    if (y - 1 >= 0 && currentCanvasState[x][y - 1] === fillFrom) {
+      fillCell(x, y - 1);
+    }
+    currentCanvasState[x][y] = fillTo;
+  }
+  fillCell(i, j);
+  state.isDrawing = false;
+}
+
+export {
+ drawCanvas, drawImage, getPixelColor, fillArea 
+};
