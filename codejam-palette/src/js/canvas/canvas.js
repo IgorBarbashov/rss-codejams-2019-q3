@@ -1,4 +1,4 @@
-import { state } from '../state';
+import { state, stateToStorage } from '../state';
 import renderRules from './rules';
 import errorHandler from '../errorHandler';
 
@@ -22,11 +22,26 @@ function drawCanvas() {
 }
 
 function drawImage() {
-  const { baseSize, currentSource } = state;
+  const { currentSource, currentSize } = state;
   const img = new Image();
   img.src = currentSource;
   img.addEventListener('load', () => {
-    ctx.drawImage(img, 0, 0, baseSize, baseSize);
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = currentSize;
+    tempCanvas.height = currentSize;
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(img, 0, 0, currentSize, currentSize);
+    const newArray = new Array(currentSize).fill(0).map((row, x) => new Array(currentSize).fill(0).map((cell, y) => {
+        const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
+        const hexColor = rgbaColor
+          .slice(0, 3)
+          .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
+          .slice(-6);
+        return hexColor;
+      }),);
+    state.currentCanvasState = newArray;
+    drawCanvas();
+    stateToStorage();
     errorHandler('hide');
   });
   img.addEventListener('error', () => {
