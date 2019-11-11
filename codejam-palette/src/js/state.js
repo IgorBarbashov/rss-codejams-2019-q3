@@ -26,7 +26,16 @@ async function fetchData() {
       throw new Error('Server response is not OK');
     }
     const data = await response.json();
-    state.currentCanvasState = data;
+    state.currentCanvasState = data.map(row =>
+      row.map(cell =>
+        Array.isArray(cell)
+          ? cell
+              .slice(0, 3)
+              .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
+              .slice(-6)
+          : cell
+      )
+    );
     stateToStorage();
     errorHandler('hide');
   } catch {
