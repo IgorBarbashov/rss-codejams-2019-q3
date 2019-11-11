@@ -7,10 +7,11 @@ canvas.width = state.baseSize;
 canvas.height = state.baseSize;
 const ctx = canvas.getContext('2d');
 
-async function drawCanvas(size, src) {
-  const spriteSize = state.baseSize / size;
+async function drawCanvas() {
+  const { currentSize, currentSource, baseSize } = state;
+  const spriteSize = baseSize / currentSize;
   try {
-    const response = await fetch(src);
+    const response = await fetch(currentSource);
     if (!response.ok) {
       throw new Error('Server response is not OK');
     }
@@ -29,20 +30,21 @@ async function drawCanvas(size, src) {
     console.log('Ошибка получения данных от сервера:', e);
     errorHandler('show');
   }
-  renderRules(size);
+  renderRules();
 }
 
-function drawImage(size, src) {
+function drawImage() {
+  const { baseSize, currentSource } = state;
   const img = new Image();
-  img.src = src;
+  img.src = currentSource;
   img.addEventListener('load', () => {
-    ctx.drawImage(img, 0, 0, 512, 512);
+    ctx.drawImage(img, 0, 0, baseSize, baseSize);
     errorHandler('hide');
   });
   img.addEventListener('error', () => {
     errorHandler('show');
   });
-  renderRules(size);
+  renderRules();
 }
 
 export { drawCanvas, drawImage };

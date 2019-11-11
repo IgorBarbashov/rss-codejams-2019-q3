@@ -11,13 +11,13 @@ const changeCanvasSize = event => {
   sizeButtons.forEach(button => button.classList.remove('active'));
   pressedSize.classList.add('active');
 
-  state.currenttSize = pressedSize.dataset.size;
-  state.currenttSource = pressedSize.dataset.src;
+  state.currentSize = pressedSize.dataset.size;
+  state.currentSource = pressedSize.dataset.src;
 
   if (pressedSize.dataset.isImage === 'true') {
-    drawImage(pressedSize.dataset.size, pressedSize.dataset.src);
+    drawImage();
   } else {
-    drawCanvas(pressedSize.dataset.size, pressedSize.dataset.src);
+    drawCanvas();
   }
 };
 

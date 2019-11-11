@@ -5,16 +5,16 @@ canvas.width = state.baseSize;
 canvas.height = state.baseSize;
 const ctx = canvas.getContext('2d');
 
-function renderRules(size = state.currentSize) {
-  const { isShowRules, baseSize, maxGridCapacity } = state;
+function renderRules() {
+  const { currentSize, isShowRules, baseSize, maxGridCapacity } = state;
   ctx.clearRect(0, 0, baseSize, baseSize);
 
-  if (!isShowRules || size > maxGridCapacity) {
+  if (!isShowRules || currentSize > maxGridCapacity) {
     return;
   }
 
-  const step = Math.floor(baseSize / size);
-  const rulesCount = size + 1;
+  const step = Math.floor(baseSize / currentSize);
+  const rulesCount = currentSize + 1;
 
   ctx.setLineDash([1, 3]);
   ctx.lineWidth = 1;

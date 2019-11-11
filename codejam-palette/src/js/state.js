@@ -5,6 +5,9 @@ const state = {
   currentSize: 4,
   currentSource: './assets/data/4x4.json',
   maxGridCapacity: 64,
+  currentCanvasState: [],
+  // currentColor:
+  // prevColor:
 };
 
 export default state;
