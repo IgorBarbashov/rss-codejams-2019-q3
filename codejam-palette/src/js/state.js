@@ -50,6 +50,7 @@ async function initState() {
     try {
       const parsedState = JSON.parse(savedState);
       state = parsedState;
+      state.isDrawing = false;
     } catch (e) {
       console.log('Ошибка восстановления сохраненных данных', e);
     }
