@@ -1,4 +1,4 @@
-import state from '../state';
+import { state } from '../state';
 
 const canvas = document.getElementById('canvas-rules');
 canvas.width = state.baseSize;

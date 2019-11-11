@@ -1,8 +1,14 @@
-import { toolsButtons, chooseTool } from './panels/tools';
-import { sizeButtons, changeCanvasSize } from './panels/resize';
+import { initState } from './state';
+import { initTools } from './panels/tools';
+import { initSizes } from './panels/resize';
+import { initColors } from './panels/colors';
 import { drawCanvas } from './canvas/canvas';
 
-sizeButtons.forEach(size => size.addEventListener('click', changeCanvasSize));
-toolsButtons.forEach(tool => tool.addEventListener('click', chooseTool));
+function initApp() {
+  initTools();
+  initSizes();
+  initColors();
+  initState().then(() => drawCanvas());
+}
 
-drawCanvas();
+initApp();

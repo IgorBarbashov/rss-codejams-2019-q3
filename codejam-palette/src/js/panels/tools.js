@@ -1,4 +1,4 @@
-import state from '../state';
+import { state } from '../state';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
 
@@ -12,4 +12,16 @@ const chooseTool = event => {
   state.currentTool = pressedTool.dataset.tool;
 };
 
-export { toolsButtons, chooseTool };
+function initTools() {
+  const { currentTool } = state;
+  toolsButtons.forEach(button => {
+    button.addEventListener('click', chooseTool);
+    if (button.dataset.tool === currentTool) {
+      button.classList.add('active');
+    } else {
+      button.classList.remove('active');
+    }
+  });
+}
+
+export { toolsButtons, chooseTool, initTools };

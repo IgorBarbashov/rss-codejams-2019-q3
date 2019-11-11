@@ -1,9 +1,9 @@
-import state from '../state';
+import { state, fetchData } from '../state';
 import { drawCanvas, drawImage } from '../canvas/canvas';
 
 const sizeButtons = document.querySelectorAll('.aside-right__fsize');
 
-const changeCanvasSize = event => {
+const changeCanvasSize = async event => {
   const pressedSize = event.currentTarget;
   if (pressedSize.classList.contains('active')) {
     return;
@@ -11,14 +11,27 @@ const changeCanvasSize = event => {
   sizeButtons.forEach(button => button.classList.remove('active'));
   pressedSize.classList.add('active');
 
-  state.currentSize = pressedSize.dataset.size;
+  state.currentSize = +pressedSize.dataset.size;
   state.currentSource = pressedSize.dataset.src;
 
   if (pressedSize.dataset.isImage === 'true') {
     drawImage();
   } else {
+    await fetchData();
     drawCanvas();
   }
 };
 
-export { sizeButtons, changeCanvasSize };
+function initSizes() {
+  const { currentSize } = state;
+  sizeButtons.forEach(button => {
+    button.addEventListener('click', changeCanvasSize);
+    if (button.dataset.size === `${currentSize}`) {
+      button.classList.add('active');
+    } else {
+      button.classList.remove('active');
+    }
+  });
+}
+
+export { sizeButtons, changeCanvasSize, initSizes };
