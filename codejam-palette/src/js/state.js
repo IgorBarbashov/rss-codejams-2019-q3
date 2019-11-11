@@ -14,7 +14,9 @@ let state = {
 };
 
 const defaultSize = 4;
-const defaultCanvasState = new Array(defaultSize).fill(new Array(defaultSize).fill('cccccc'));
+const defaultCanvasState = new Array(defaultSize)
+  .fill(0)
+  .map(() => new Array(defaultSize).fill('cccccc'));
 
 async function fetchData() {
   const { currentSource } = state;
