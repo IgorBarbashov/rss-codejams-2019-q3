@@ -9,6 +9,14 @@
   line-height: 24px;
   color: $text-grey;
 
+  &__title {
+    margin-bottom: 15px;
+
+    font-size: 14px;
+    line-height: normal;
+    text-align: center;
+  }
+
   .aside-right__fsizes {
     background: $text-white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
