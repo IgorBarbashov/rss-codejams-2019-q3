@@ -48,4 +48,4 @@ function initColors() {
   renderColors();
 }
 
-export { initColors };
+export { initColors, renderColors };

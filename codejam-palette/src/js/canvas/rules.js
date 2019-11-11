@@ -1,28 +1,9 @@
 import { state } from '../state';
-// import { applyTool } from '../panels/tools';
 
 const canvas = document.getElementById('canvas-rules');
 canvas.width = state.baseSize;
 canvas.height = state.baseSize;
 const ctx = canvas.getContext('2d');
-
-// canvas.addEventListener('mousedown', applyTool);
-// window.addEventListener('mouseup', () => {
-//   state.isDrawing = false;
-// });
-// canvas.addEventListener('mousemove', (event) => {
-//   if (state.isDrawing) {
-//     applyTool(event);
-//   }
-// });
-// canvas.addEventListener('mouseup', () => {
-//   state.isDrawing = false;
-// });
-// canvas.addEventListener('mouseenter', (event) => {
-//   if (state.isDrawing) {
-//     applyTool(event);
-//   }
-// });
 
 function renderRules() {
   const {

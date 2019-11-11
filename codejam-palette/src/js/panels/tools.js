@@ -1,5 +1,6 @@
 import { state, stateToStorage } from '../state';
-import { drawCanvas } from '../canvas/canvas';
+import { drawCanvas, getPixelColor } from '../canvas/canvas';
+import { renderColors } from './colors';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
 const allShortCuts = [...toolsButtons].map((el) => el.dataset.shortcut);
@@ -59,18 +60,23 @@ function applyTool(event) {
   switch (currentTool) {
     case 'pencil':
       state.currentCanvasState[i][j] = currentColor.slice(1);
+      drawCanvas();
       break;
     case 'paint-bucket':
       state.currentCanvasState = new Array(currentSize)
         .fill(0)
         .map(() => new Array(currentSize).fill(currentColor.slice(1)));
+      drawCanvas();
       break;
     case 'choose-color':
+      const newColor = getPixelColor(layerX, layerY);
+      state.prevColor = state.currentColor;
+      state.currentColor = newColor;
+      renderColors();
+      break;
     default:
       break;
   }
-
-  drawCanvas();
   stateToStorage();
 }
 
