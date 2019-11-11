@@ -9,6 +9,10 @@
   line-height: 24px;
   color: $text-grey;
 
+  #custom-color {
+    display: none;
+  }
+
   &__tools,
   &__colors {
     background: $text-white;
@@ -23,6 +27,8 @@
   .aside-left__color {
     height: 60px;
 
+    cursor: pointer;
+
     &.active {
       background: $menu-active;
     }
@@ -33,6 +39,10 @@
       & svg > path {
         fill: $text-disabled;
       }
+    }
+
+    &:not(.active):hover {
+      background: #eeeeee;
     }
   }
 

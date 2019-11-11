@@ -43,4 +43,12 @@
   .active {
     background: $menu-active;
   }
+
+  .aside-right__fsize {
+    cursor: pointer;
+  }
+
+  .aside-right__fsize:not(.active):hover {
+    background: #eeeeee;
+  }
 }
