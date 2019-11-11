@@ -72,19 +72,27 @@
           Не удалось загрузить данные/картинку для отрисовки.<br />
           Попробуйте еще раз.
         </div>
-        <canvas class="main-section__canvas" id="canvas"></canvas>
+        <div class="main-section__canvas-wrapper">
+          <canvas class="main-section__canvas" id="canvas"></canvas>
+          <canvas class="main-section__canvas canvas-rules" id="canvas-rules"></canvas>
+        </div>
       </main>
       <aside class="aside-right">
         <div class="aside-right__fsizes">
-          <div data-size="4" class="aside-right__fsize active">
+          <div data-size="4" data-src="./assets/data/4x4.json" class="aside-right__fsize active">
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">4 x 4</div>
           </div>
-          <div data-size="32" class="aside-right__fsize">
+          <div data-size="32" data-src="./assets/data/32x32.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">32 x 32</div>
           </div>
-          <div data-is-image="true" class="aside-right__fsize">
+          <div
+            data-size="256"
+            data-src="./assets/images/image.png"
+            data-is-image="true"
+            class="aside-right__fsize"
+          >
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">256 x 256</div>
           </div>

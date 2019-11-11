@@ -7,9 +7,25 @@
 
   text-align: center;
 
-  &__canvas {
+  &__canvas-wrapper {
+    position: relative;
+
     width: 512px;
     height: 512px;
+    margin: 0 auto;
+  }
+
+  &__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 512px;
+    height: 512px;
+  }
+
+  .canvas-rules {
+    z-index: 1;
   }
 
   & .error-msg {

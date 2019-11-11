@@ -1,17 +1,13 @@
-const dataSrc = {
-  4: '4x4.json',
-  32: '32x32.json',
-};
-const baseSize = 512;
-const defaultSize = 4;
+import state from './state';
+import renderRules from './rules';
 
 const errorMsg = document.querySelector('.error-msg');
 let errorTimer;
 
 const buttons = document.querySelectorAll('.aside-right__fsize');
 const canvas = document.getElementById('canvas');
-canvas.width = baseSize;
-canvas.height = baseSize;
+canvas.width = state.baseSize;
+canvas.height = state.baseSize;
 const ctx = canvas.getContext('2d');
 
 function handleErrorMsg(action = 'hide', time = 3000) {
@@ -26,10 +22,10 @@ function handleErrorMsg(action = 'hide', time = 3000) {
   }
 }
 
-async function drawCanvas(size) {
-  const spriteSize = baseSize / size;
+async function drawCanvas(size, src) {
+  const spriteSize = state.baseSize / size;
   try {
-    const response = await fetch(`./assets/data/${dataSrc[size]}`);
+    const response = await fetch(src);
     if (!response.ok) {
       throw new Error('Server response is not OK');
     }
@@ -48,11 +44,12 @@ async function drawCanvas(size) {
     console.log('Ошибка получения данных от сервера:', e);
     handleErrorMsg('show');
   }
+  renderRules(size);
 }
 
-function drawImage() {
+function drawImage(size, src) {
   const img = new Image();
-  img.src = './assets/images/image.png';
+  img.src = src;
   img.addEventListener('load', () => {
     ctx.drawImage(img, 0, 0, 512, 512);
     handleErrorMsg('hide');
@@ -60,21 +57,23 @@ function drawImage() {
   img.addEventListener('error', () => {
     handleErrorMsg('show');
   });
+
+  renderRules(size);
 }
 
-buttons.forEach((el) => {
+buttons.forEach(el => {
   el.addEventListener('click', () => {
     if (el.classList.contains('active')) {
       return;
     }
-    buttons.forEach((button) => button.classList.remove('active'));
+    buttons.forEach(button => button.classList.remove('active'));
     el.classList.add('active');
     if (el.dataset.isImage === 'true') {
-      drawImage();
+      drawImage(el.dataset.size, el.dataset.src);
     } else {
-      drawCanvas(el.dataset.size);
+      drawCanvas(el.dataset.size, el.dataset.src);
     }
   });
 });
 
-drawCanvas(defaultSize);
+drawCanvas(state.defaultSize, state.defualtSource);
