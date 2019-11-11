@@ -5,10 +5,12 @@ import { initColors } from './panels/colors';
 import { drawCanvas } from './canvas/canvas';
 
 function initApp() {
-  initTools();
-  initSizes();
-  initColors();
-  initState().then(() => drawCanvas());
+  initState().then(() => {
+    initTools();
+    initSizes();
+    initColors();
+    drawCanvas();
+  });
 }
 
 window.addEventListener('keyup', chooseToolByShortCut);

@@ -1,4 +1,4 @@
-import { state } from '../state';
+import { state, stateToStorage } from '../state';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
 const allShortCuts = [...toolsButtons].map((el) => el.dataset.shortcut);
@@ -11,6 +11,7 @@ const chooseTool = (event) => {
   toolsButtons.forEach((button) => button.classList.remove('active'));
   pressedTool.classList.add('active');
   state.currentTool = pressedTool.dataset.tool;
+  stateToStorage();
 };
 
 function chooseToolByShortCut(shortCut) {
@@ -22,6 +23,7 @@ function chooseToolByShortCut(shortCut) {
     if (button.dataset.shortcut === pressedKey && !button.classList.contains('active')) {
       button.classList.add('active');
       state.currentTool = button.dataset.tool;
+      stateToStorage();
     } else if (button.dataset.shortcut !== pressedKey && button.classList.contains('active')) {
       button.classList.remove('active');
     }

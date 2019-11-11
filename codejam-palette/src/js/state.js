@@ -1,6 +1,6 @@
 import errorHandler from './errorHandler';
 
-const state = {
+let state = {
   isDrawing: false,
   currentTool: 'pencil',
   isShowRules: true,
@@ -14,9 +14,7 @@ const state = {
 };
 
 const defaultSize = 4;
-const defaultCanvasState = new Array(state.defaultSize).fill(
-  new Array(state.defaultSize).fill('cccccc')
-);
+const defaultCanvasState = new Array(defaultSize).fill(new Array(defaultSize).fill('cccccc'));
 
 async function fetchData() {
   const { currentSource } = state;
@@ -27,22 +25,38 @@ async function fetchData() {
     }
     const data = await response.json();
     state.currentCanvasState = data;
+    stateToStorage();
     errorHandler('hide');
   } catch {
     state.currentSize = defaultSize;
     state.currentCanvasState = defaultCanvasState;
+    stateToStorage();
     errorHandler('show');
   }
 }
 
+function stateToStorage() {
+  try {
+    const stringifiedState = JSON.stringify(state);
+    localStorage.setItem('savedState', stringifiedState);
+  } catch (e) {
+    console.log('Ошибка при сохранении данных', e);
+  }
+}
+
 async function initState() {
+  const savedState = localStorage.getItem('savedState');
+  if (savedState) {
+    try {
+      const parsedState = JSON.parse(savedState);
+      state = parsedState;
+    } catch (e) {
+      console.log('Ошибка восстановления сохраненных данных', e);
+    }
+  }
   if (state.currentCanvasState === null) {
     await fetchData();
   }
 }
 
-export { initState, fetchData, state };
-
-// paint-bucket
-// choose-color
-// pencil
+export { stateToStorage, initState, fetchData, state };

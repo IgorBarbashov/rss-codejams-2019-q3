@@ -1,4 +1,4 @@
-import { state, fetchData } from '../state';
+import { state, fetchData, stateToStorage } from '../state';
 import { drawCanvas, drawImage } from '../canvas/canvas';
 
 const sizeButtons = document.querySelectorAll('.aside-right__fsize');
@@ -13,6 +13,7 @@ const changeCanvasSize = async (event) => {
 
   state.currentSize = +pressedSize.dataset.size;
   state.currentSource = pressedSize.dataset.src;
+  stateToStorage();
 
   if (pressedSize.dataset.isImage === 'true') {
     drawImage();

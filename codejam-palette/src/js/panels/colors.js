@@ -1,4 +1,4 @@
-import { state } from '../state';
+import { state, stateToStorage } from '../state';
 
 const colorsButtons = document.querySelectorAll('.aside-left__color');
 const currentColorButton = document.querySelector('.aside-left__color:first-child');
@@ -17,6 +17,7 @@ function customColorChange(event) {
   state.prevColor = state.currentColor;
   state.currentColor = event.target.value;
   renderColors();
+  stateToStorage();
 }
 customColorInput.addEventListener('change', customColorChange);
 
@@ -38,6 +39,7 @@ function cnahgeColor() {
     state.prevColor = state.currentColor;
     state.currentColor = pressedButton.dataset.color;
   }
+  stateToStorage();
   renderColors();
 }
 
