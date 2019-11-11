@@ -1,6 +1,7 @@
 import errorHandler from './errorHandler';
 
 const state = {
+  isDrawing: false,
   currentTool: 'pencil',
   isShowRules: true,
   baseSize: 512,
