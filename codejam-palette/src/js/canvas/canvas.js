@@ -1,6 +1,6 @@
-import state from './state';
+import state from '../state';
 import renderRules from './rules';
-import errorHandler from './errorHandler';
+import errorHandler from '../errorHandler';
 
 const canvas = document.getElementById('canvas');
 canvas.width = state.baseSize;

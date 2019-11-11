@@ -1,9 +1,14 @@
 const state = {
+  currentTool: 'pencil',
   isShowRules: true,
   baseSize: 512,
-  defaultSize: 4,
-  defaultSource: './assets/data/4x4.json',
+  currentSize: 4,
+  currentSource: './assets/data/4x4.json',
   maxGridCapacity: 64,
 };
 
 export default state;
+
+// paint-bucket
+// choose-color
+// pencil

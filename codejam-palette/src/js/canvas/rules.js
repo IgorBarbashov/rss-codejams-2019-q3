@@ -1,11 +1,11 @@
-import state from './state';
+import state from '../state';
 
 const canvas = document.getElementById('canvas-rules');
 canvas.width = state.baseSize;
 canvas.height = state.baseSize;
 const ctx = canvas.getContext('2d');
 
-function renderRules(size = state.defaultSize) {
+function renderRules(size = state.currentSize) {
   const { isShowRules, baseSize, maxGridCapacity } = state;
   ctx.clearRect(0, 0, baseSize, baseSize);
 

@@ -1,21 +1,9 @@
 import state from './state';
-import { drawCanvas, drawImage } from './canvas';
+import { toolsButtons, chooseTool } from './panels/tools';
+import { sizeButtons, changeCanvasSize } from './panels/resize';
+import { drawCanvas } from './canvas/canvas';
 
-const sizeButtons = document.querySelectorAll('.aside-right__fsize');
+sizeButtons.forEach(size => size.addEventListener('click', changeCanvasSize));
+toolsButtons.forEach(tool => tool.addEventListener('click', chooseTool));
 
-sizeButtons.forEach(el => {
-  el.addEventListener('click', () => {
-    if (el.classList.contains('active')) {
-      return;
-    }
-    sizeButtons.forEach(button => button.classList.remove('active'));
-    el.classList.add('active');
-    if (el.dataset.isImage === 'true') {
-      drawImage(el.dataset.size, el.dataset.src);
-    } else {
-      drawCanvas(el.dataset.size, el.dataset.src);
-    }
-  });
-});
-
-drawCanvas(state.defaultSize, state.defaultSource);
+drawCanvas(state.currentSize, state.currentSource);

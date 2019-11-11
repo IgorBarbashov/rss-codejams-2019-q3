@@ -11,8 +11,6 @@
 
   &__tools,
   &__colors {
-    height: 250px;
-
     background: $text-white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
   }
@@ -24,6 +22,18 @@
   .aside-left__tool,
   .aside-left__color {
     height: 60px;
+
+    &.active {
+      background: $menu-active;
+    }
+
+    &_disable {
+      color: $text-disabled;
+
+      & svg > path {
+        fill: $text-disabled;
+      }
+    }
   }
 
   .aside-left__tool-icon,
