@@ -1,6 +1,8 @@
 import errorHandler from './errorHandler';
 
 let state = {
+  prevX: null,
+  prevY: null,
   isDrawing: false,
   currentTool: 'pencil',
   isShowRules: true,
@@ -62,6 +64,8 @@ async function initState() {
       const parsedState = JSON.parse(savedState);
       state = parsedState;
       state.isDrawing = false;
+      state.prevX = null;
+      state.prevY = null;
     } catch (e) {
       console.log('Ошибка восстановления сохраненных данных', e);
     }

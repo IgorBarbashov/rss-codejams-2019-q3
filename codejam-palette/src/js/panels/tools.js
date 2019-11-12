@@ -3,14 +3,14 @@ import { drawCanvas, getPixelColor, fillArea } from '../canvas/canvas';
 import { renderColors } from './colors';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
-const allShortCuts = [...toolsButtons].map((el) => el.dataset.shortcut);
+const allShortCuts = [...toolsButtons].map(el => el.dataset.shortcut);
 
-const chooseTool = (event) => {
+const chooseTool = event => {
   const pressedTool = event.currentTarget;
   if (pressedTool.classList.contains('active')) {
     return;
   }
-  toolsButtons.forEach((button) => button.classList.remove('active'));
+  toolsButtons.forEach(button => button.classList.remove('active'));
   pressedTool.classList.add('active');
   state.currentTool = pressedTool.dataset.tool;
   stateToStorage();
@@ -21,7 +21,7 @@ function chooseToolByShortCut(shortCut) {
   if (state.isDrawing || !allShortCuts.includes(pressedKey)) {
     return;
   }
-  toolsButtons.forEach((button) => {
+  toolsButtons.forEach(button => {
     if (button.dataset.shortcut === pressedKey && !button.classList.contains('active')) {
       button.classList.add('active');
       state.currentTool = button.dataset.tool;
@@ -34,7 +34,7 @@ function chooseToolByShortCut(shortCut) {
 
 function initTools() {
   const { currentTool } = state;
-  toolsButtons.forEach((button) => {
+  toolsButtons.forEach(button => {
     button.addEventListener('click', chooseTool);
     if (button.dataset.tool === currentTool) {
       button.classList.add('active');
@@ -44,14 +44,37 @@ function initTools() {
   });
 }
 
+function calculateLine(x1, y1, x2, y2) {
+  const deltaX = Math.abs(x2 - x1);
+  const deltaY = Math.abs(y2 - y1);
+  const signX = x1 < x2 ? 1 : -1;
+  const signY = y1 < y2 ? 1 : -1;
+  let error = deltaX - deltaY;
+
+  state.currentCanvasState[x2][y2] = state.currentColor.slice(1);
+
+  let cX = x1;
+  let cY = y1;
+  while (cX !== x2 || cY !== y2) {
+    state.currentCanvasState[cX][cY] = state.currentColor.slice(1);
+    const error2 = error * 2;
+    if (error2 > -deltaY) {
+      error -= deltaY;
+      cX += signX;
+    }
+    if (error2 < deltaX) {
+      error += deltaX;
+      cY += signY;
+    }
+  }
+}
+
 function applyTool(event) {
   if (event.which !== 1) {
     return;
   }
   state.isDrawing = true;
-  const {
- baseSize, currentSize, currentColor, currentTool 
-} = state;
+  const { baseSize, currentSize, currentColor, currentTool } = state;
 
   const { layerX, layerY } = event;
   const i = Math.floor((layerX / baseSize) * currentSize);
@@ -59,8 +82,17 @@ function applyTool(event) {
 
   switch (currentTool) {
     case 'pencil':
-      state.currentCanvasState[i][j] = currentColor.slice(1);
-      drawCanvas();
+      if (state.prevX === i && state.prevY === j) {
+        break;
+      } else if (state.prevX === null || state.prevY === null) {
+        state.currentCanvasState[i][j] = currentColor.slice(1);
+        drawCanvas();
+      } else {
+        calculateLine(state.prevX, state.prevY, i, j);
+        drawCanvas();
+      }
+      state.prevX = i;
+      state.prevY = j;
       break;
     case 'paint-bucket':
       fillArea(i, j);
@@ -77,6 +109,4 @@ function applyTool(event) {
   stateToStorage();
 }
 
-export {
- chooseToolByShortCut, toolsButtons, chooseTool, initTools, applyTool 
-};
+export { chooseToolByShortCut, toolsButtons, chooseTool, initTools, applyTool };
