@@ -21,6 +21,7 @@ const defaultState = {
   prevColor: '#ffeb3b',
   currentTown: 'Nizhny Novgorod',
   isLoadImageEnable: false,
+  wasImageLoaded: true,
 };
 
 let state = { ...defaultState };

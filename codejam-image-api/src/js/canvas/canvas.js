@@ -22,22 +22,30 @@ function drawCanvas() {
   renderRules();
 }
 
-// function convertImageToArray(img) {
-//   const { currentSize } = state;
-//   const tempCanvas = document.createElement('canvas');
-//   tempCanvas.width = currentSize;
-//   tempCanvas.height = currentSize;
-//   const tempCtx = tempCanvas.getContext('2d');
-//   tempCtx.drawImage(img, 0, 0, currentSize, currentSize);
-//   const newArray = new Array(currentSize).fill(0).map((row, x) =>
-//     new Array(currentSize).fill(0).map((cell, y) => {
-//       const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
-//       const hexColor = rgbToHex(rgbaColor);
-//       return hexColor;
-//     })
-//   );
-//   return newArray;
-// }
+function convertToGrayscale() {
+  const { currentSize, currentCanvasState } = state;
+  state.currentCanvasState = currentCanvasState.map((row) =>
+    row.map((el) => {
+      console.log('el', el);
+      const r = parseInt(el.substr(0, 2), 16);
+      console.log('r', r);
+      const g = parseInt(el.substr(2, 2), 16);
+      console.log('el.slice(2, 2)', el.substr(2, 2));
+      console.log('g', g);
+      const b = parseInt(el.substr(4, 2), 16);
+      console.log('b', b);
+      const avg = Math.floor((r + g + b) / 3);
+      console.log('avg', avg);
+      const hexAvg = avg.toString(16);
+      console.log('hexAvg', hexAvg);
+      const hexColor = hexAvg.repeat(3);
+      console.log('hexColor', hexColor);
+      return hexColor;
+    }),
+  );
+  stateToStorage();
+  drawCanvas();
+}
 
 function drawImage() {
   const { currentSource, currentSize } = state;
@@ -118,4 +126,6 @@ async function resizeCurentCanvas() {
   });
 }
 
-export { drawCanvas, drawImage, getPixelColor, fillArea, resizeCurentCanvas };
+export {
+ drawCanvas, drawImage, getPixelColor, fillArea, resizeCurentCanvas, convertToGrayscale 
+};

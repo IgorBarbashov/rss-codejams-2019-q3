@@ -5,6 +5,7 @@ import renderRules from '../canvas/rules';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
 const rulesInput = document.getElementById('tool-rules');
+const grayscale = document.querySelector('.grayscale-button');
 
 const allShortCuts = [...toolsButtons].map((el) => el.dataset.shortcut);
 

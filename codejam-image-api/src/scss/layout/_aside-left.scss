@@ -20,7 +20,7 @@
   }
 
   &__colors {
-    margin-top: 90px;
+    margin-top: 65px;
   }
 
   .aside-left__tool,
@@ -61,6 +61,28 @@
     margin-left: 35px;
 
     line-height: 60px;
+  }
+
+  .grayscale-button {
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 5px;
+
+    color: $text-grey;
+
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
+
+    &:active {
+      position: relative;
+      top: 1px;
+      left: 1px;
+    }
+
+    &[disabled] {
+      color: $text-disabled;
+    }
   }
 
   .aside-left__color-example {

@@ -2,7 +2,7 @@ import { initState, state, resetState } from './state';
 import { initTools, chooseToolByShortCut, applyTool } from './panels/tools';
 import { initSizes } from './panels/resize';
 import { initColors } from './panels/colors';
-import { drawCanvas } from './canvas/canvas';
+import { drawCanvas, convertToGrayscale } from './canvas/canvas';
 import { initTownTool } from './panels/town';
 
 function initApp() {
@@ -13,6 +13,19 @@ function initApp() {
     initColors();
     drawCanvas();
 
+    window.addEventListener('keyup', chooseToolByShortCut);
+
+    const refresh = document.querySelector('.header__icon.refresh');
+    refresh.addEventListener('click', () => {
+      localStorage.removeItem('savedState');
+      resetState();
+      initApp();
+    });
+
+    const grayscale = document.querySelector('.grayscale-button');
+    grayscale.disabled = !state.wasImageLoaded;
+    grayscale.addEventListener('click', convertToGrayscale);
+
     const canvas = document.getElementById('canvas-rules');
     canvas.addEventListener('mousedown', applyTool);
     window.addEventListener('mouseup', () => {
@@ -20,12 +33,12 @@ function initApp() {
       state.prevY = null;
       state.isDrawing = false;
     });
-    canvas.addEventListener('mousemove', (event) => {
+    canvas.addEventListener('mousemove', event => {
       if (state.isDrawing) {
         applyTool(event);
       }
     });
-    canvas.addEventListener('mouseenter', (event) => {
+    canvas.addEventListener('mouseenter', event => {
       if (state.isDrawing) {
         state.prevX = null;
         state.prevY = null;
@@ -34,13 +47,5 @@ function initApp() {
     });
   });
 }
-
-window.addEventListener('keyup', chooseToolByShortCut);
-const refresh = document.querySelector('.header__icon.refresh');
-refresh.addEventListener('click', () => {
-  localStorage.removeItem('savedState');
-  resetState();
-  initApp();
-});
 
 initApp();
