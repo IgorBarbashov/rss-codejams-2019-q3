@@ -1,5 +1,5 @@
 import { state, fetchData, stateToStorage } from '../state';
-import { drawCanvas, drawImage } from '../canvas/canvas';
+import { drawCanvas, drawImage, resizeCurentCanvas } from '../canvas/canvas';
 import { initTownTool } from './town';
 
 const sizeButtons = document.querySelectorAll('.aside-right__fsize');
@@ -17,7 +17,7 @@ const changeCanvasSize = async event => {
       button.classList.remove('active');
     }
   });
-  state.currentSize = +pressedSize.dataset.size;
+  state.currentSize = newSize;
 
   if (pressedSize.dataset.src) {
     state.currentSource = pressedSize.dataset.src;
@@ -28,8 +28,7 @@ const changeCanvasSize = async event => {
       drawCanvas();
     }
   } else {
-    console.log('просто меняем размер');
-    // resizeCureentCanvas();
+    resizeCurentCanvas();
   }
 
   initTownTool();

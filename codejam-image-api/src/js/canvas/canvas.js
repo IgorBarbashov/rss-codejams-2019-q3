@@ -95,4 +95,26 @@ function fillArea(i, j) {
   state.isDrawing = false;
 }
 
-export { drawCanvas, drawImage, getPixelColor, fillArea };
+async function resizeCurentCanvas() {
+  state.isDrawing = true;
+  const { currentSize } = state;
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = currentSize;
+  tempCanvas.height = currentSize;
+  const tempCtx = tempCanvas.getContext('2d');
+
+  const currentImage = canvas.toDataURL();
+  const tempImage = new Image();
+  tempImage.src = currentImage;
+
+  tempImage.addEventListener('load', () => {
+    tempCtx.drawImage(tempImage, 0, 0, currentSize, currentSize);
+
+    const newArray = convertImageToArray(tempImage);
+    state.currentCanvasState = newArray;
+    drawCanvas();
+    state.isDrawing = false;
+  });
+}
+
+export { drawCanvas, drawImage, getPixelColor, fillArea, resizeCurentCanvas };
