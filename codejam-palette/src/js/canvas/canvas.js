@@ -74,23 +74,23 @@ function fillArea(i, j) {
   if (fillFrom.toLowerCase() === fillTo.toLowerCase()) {
     return;
   }
-  function fillCell(x, y) {
-    currentCanvasState[x][y] = fillTo;
+  const pixels = [[i, j], [i, j], 'end'];
+  while (pixels.length !== 1) {
+    const [x, y] = pixels.shift();
     if (x + 1 < currentSize && currentCanvasState[x + 1][y] === fillFrom) {
-      fillCell(x + 1, y);
+      pixels.unshift([x + 1, y]);
     }
     if (x - 1 >= 0 && currentCanvasState[x - 1][y] === fillFrom) {
-      fillCell(x - 1, y);
+      pixels.unshift([x - 1, y]);
     }
     if (y + 1 < currentSize && currentCanvasState[x][y + 1] === fillFrom) {
-      fillCell(x, y + 1);
+      pixels.unshift([x, y + 1]);
     }
     if (y - 1 >= 0 && currentCanvasState[x][y - 1] === fillFrom) {
-      fillCell(x, y - 1);
+      pixels.unshift([x, y - 1]);
     }
     currentCanvasState[x][y] = fillTo;
   }
-  fillCell(i, j);
   state.isDrawing = false;
 }
 
