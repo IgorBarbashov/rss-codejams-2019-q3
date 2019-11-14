@@ -1,6 +1,7 @@
 import { state, stateToStorage } from '../state';
 import renderRules from './rules';
 import errorHandler from '../errorHandler';
+import rgbToHex from '../helpers';
 
 const canvas = document.getElementById('canvas');
 canvas.width = state.baseSize;
@@ -31,10 +32,7 @@ function convertImageToArray(img) {
   const newArray = new Array(currentSize).fill(0).map((row, x) =>
     new Array(currentSize).fill(0).map((cell, y) => {
       const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
-      const hexColor = rgbaColor
-        .slice(0, 3)
-        .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
-        .slice(-6);
+      const hexColor = rgbToHex(rgbaColor);
       return hexColor;
     })
   );
@@ -61,10 +59,7 @@ function drawImage() {
 function getPixelColor(x, y) {
   try {
     const rgbaColor = ctx.getImageData(x, y, 1, 1).data;
-    const hexColor = rgbaColor
-      .slice(0, 3)
-      .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
-      .slice(-6);
+    const hexColor = rgbToHex(rgbaColor);
     return `#${hexColor}`;
   } catch (e) {
     console.log('Ошибка при получении цвета точки', e);

@@ -1,4 +1,5 @@
 import errorHandler from './errorHandler';
+import rgbToHex from './helpers';
 
 let state = {
   prevX: null,
@@ -31,14 +32,7 @@ async function fetchData() {
     }
     const data = await response.json();
     state.currentCanvasState = data.map(row =>
-      row.map(cell =>
-        Array.isArray(cell)
-          ? cell
-              .slice(0, 3)
-              .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
-              .slice(-6)
-          : cell
-      )
+      row.map(cell => (Array.isArray(cell) ? rgbToHex(cell) : cell))
     );
     stateToStorage();
     errorHandler('hide');
