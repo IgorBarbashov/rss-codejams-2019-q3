@@ -18,12 +18,10 @@
   }
 
   & .aside-right__fsizes {
+    margin-bottom: 30px;
+
     background: $text-white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
-
-    &:first-of-type {
-      margin-bottom: 30px;
-    }
   }
 
   .aside-right__fsize-bullet {
@@ -54,5 +52,27 @@
 
   .aside-right__fsize:not(.active):hover {
     background: #eeeeee;
+  }
+
+  .town-tool input,
+  .town-tool button {
+    float: left;
+    padding: 5px;
+
+    color: $text-grey;
+
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
+  }
+
+  .town-tool input {
+    width: 75%;
+    height: 28px;
+    margin-right: 5%;
+
+    &::placeholder {
+      font-size: 12px;
+    }
   }
 }

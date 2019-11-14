@@ -13,6 +13,8 @@ let state = {
   currentCanvasState: null,
   currentColor: '#41f795',
   prevColor: '#ffeb3b',
+  currentTown: 'Nizhny Novgorod',
+  isLoadImageEnable: false,
 };
 
 const defaultSize = 4;

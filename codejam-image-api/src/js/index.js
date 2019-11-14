@@ -3,10 +3,12 @@ import { initTools, chooseToolByShortCut, applyTool } from './panels/tools';
 import { initSizes } from './panels/resize';
 import { initColors } from './panels/colors';
 import { drawCanvas } from './canvas/canvas';
+import { initTownTool } from './panels/town';
 
 function initApp() {
   initState().then(() => {
     initTools();
+    initTownTool();
     initSizes();
     initColors();
     drawCanvas();
