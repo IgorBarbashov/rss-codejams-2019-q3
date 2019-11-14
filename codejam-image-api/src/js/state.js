@@ -10,7 +10,7 @@ let state = {
   baseSize: 512,
   currentSize: 4,
   currentSource: './assets/data/4x4.json',
-  maxGridCapacity: 64,
+  maxGridCapacity: 32,
   currentCanvasState: null,
   currentColor: '#41f795',
   prevColor: '#ffeb3b',

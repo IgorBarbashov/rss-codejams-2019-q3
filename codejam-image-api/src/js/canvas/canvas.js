@@ -112,6 +112,7 @@ async function resizeCurentCanvas() {
 
     const newArray = convertImageToArray(tempImage);
     state.currentCanvasState = newArray;
+    stateToStorage();
     drawCanvas();
     state.isDrawing = false;
   });
