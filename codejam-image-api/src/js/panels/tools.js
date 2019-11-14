@@ -1,18 +1,28 @@
 import { state, stateToStorage } from '../state';
 import { drawCanvas, getPixelColor, fillArea } from '../canvas/canvas';
 import { renderColors } from './colors';
+import renderRules from '../canvas/rules';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
-const allShortCuts = [...toolsButtons].map(el => el.dataset.shortcut);
+const rulesInput = document.getElementById('tool-rules');
 
-const chooseTool = event => {
+const allShortCuts = [...toolsButtons].map((el) => el.dataset.shortcut);
+
+const chooseTool = (event) => {
+  event.preventDefault();
   const pressedTool = event.currentTarget;
   if (pressedTool.classList.contains('active')) {
     return;
   }
-  toolsButtons.forEach(button => button.classList.remove('active'));
-  pressedTool.classList.add('active');
-  state.currentTool = pressedTool.dataset.tool;
+  if (pressedTool.dataset.tool === 'rules') {
+    state.isShowRules = !state.isShowRules;
+    rulesInput.checked = state.isShowRules;
+    renderRules();
+  } else {
+    toolsButtons.forEach((button) => button.classList.remove('active'));
+    pressedTool.classList.add('active');
+    state.currentTool = pressedTool.dataset.tool;
+  }
   stateToStorage();
 };
 
@@ -21,12 +31,21 @@ function chooseToolByShortCut(shortCut) {
   if (state.isDrawing || !allShortCuts.includes(pressedKey)) {
     return;
   }
-  toolsButtons.forEach(button => {
-    if (button.dataset.shortcut === pressedKey && !button.classList.contains('active')) {
+  toolsButtons.forEach((button) => {
+    if (button.dataset.shortcut === pressedKey && button.dataset.tool === 'rules') {
+      state.isShowRules = !state.isShowRules;
+      rulesInput.checked = state.isShowRules;
+      renderRules();
+      stateToStorage();
+    } else if (button.dataset.shortcut === pressedKey && !button.classList.contains('active')) {
       button.classList.add('active');
       state.currentTool = button.dataset.tool;
       stateToStorage();
-    } else if (button.dataset.shortcut !== pressedKey && button.classList.contains('active')) {
+    } else if (
+      button.dataset.shortcut !== pressedKey
+      && button.classList.contains('active')
+      && pressedKey !== 'r'
+    ) {
       button.classList.remove('active');
     }
   });
@@ -34,9 +53,12 @@ function chooseToolByShortCut(shortCut) {
 
 function initTools() {
   const { currentTool } = state;
-  toolsButtons.forEach(button => {
+  toolsButtons.forEach((button) => {
     button.addEventListener('click', chooseTool);
-    if (button.dataset.tool === currentTool) {
+    if (button.dataset.tool === 'rules') {
+      rulesInput.checked = state.isShowRules;
+      renderRules();
+    } else if (button.dataset.tool === currentTool) {
       button.classList.add('active');
     } else {
       button.classList.remove('active');
@@ -74,7 +96,9 @@ function applyTool(event) {
     return;
   }
   state.isDrawing = true;
-  const { baseSize, currentSize, currentColor, currentTool } = state;
+  const {
+ baseSize, currentSize, currentColor, currentTool 
+} = state;
 
   const { layerX, layerY } = event;
   const i = Math.floor((layerX / baseSize) * currentSize);
@@ -109,4 +133,6 @@ function applyTool(event) {
   stateToStorage();
 }
 
-export { chooseToolByShortCut, toolsButtons, chooseTool, initTools, applyTool };
+export {
+ chooseToolByShortCut, toolsButtons, chooseTool, initTools, applyTool 
+};

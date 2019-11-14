@@ -39,6 +39,12 @@
             </div>
             <div class="aside-left__tool-name">Choose color (C)</div>
           </div>
+          <div class="aside-left__tool" data-tool="rules" data-shortcut="r">
+            <div class="aside-left__tool-icon">
+              <input type="checkbox" id="tool-rules" />
+            </div>
+            <label class="aside-left__tool-name" for="tool-rules">Show rules (R)</label>
+          </div>
           <hr />
           <div class="aside-left__tool aside-left__tool_disable">
             <div class="aside-left__tool-icon">
@@ -85,23 +91,43 @@
         </div>
       </main>
       <aside class="aside-right">
+        <div class="town-tool">
+          <p class="aside-right__title">
+            Загрузить новое изображение
+          </p>
+          <input class="enter-town" placeholder="Enter town" type="text" />
+          <button class="load-town">Load</button>
+        </div>
+        <p class="aside-right__title">
+          Изменить размер рабочей области без изменения контента
+        </p>
+        <div class="aside-right__fsizes">
+          <div data-size="512" class="aside-right__fsize">
+            <div class="aside-right__fsize-bullet"></div>
+            <div class="aside-right__fsize-name">512 x 512</div>
+          </div>
+          <div data-size="256" class="aside-right__fsize">
+            <div class="aside-right__fsize-bullet"></div>
+            <div class="aside-right__fsize-name">256 x 256</div>
+          </div>
+          <div data-size="128" class="aside-right__fsize">
+            <div class="aside-right__fsize-bullet"></div>
+            <div class="aside-right__fsize-name">128 x 128</div>
+          </div>
+        </div>
         <p class="aside-right__title">
           Изменить размер рабочей области и загрузить предустановленную картинку
         </p>
         <div class="aside-right__fsizes">
-          <div data-size="4" data-src="./assets/data/4x4.json" class="aside-right__fsize">
+          <div
+            data-size="256"
+            data-src="./assets/images/image.png"
+            data-is-image="true"
+            class="aside-right__fsize"
+          >
             <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">4 x 4</div>
+            <div class="aside-right__fsize-name">256 x 256</div>
           </div>
-          <div data-size="16" data-src="./assets/data/16x16.json" class="aside-right__fsize">
-            <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">16 x 16</div>
-          </div>
-          <div data-size="32" data-src="./assets/data/32x32.json" class="aside-right__fsize">
-            <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">32 x 32</div>
-          </div>
-
           <div
             data-size="128"
             data-src="./assets/images/image.png"
@@ -112,39 +138,20 @@
             <div class="aside-right__fsize-name">128 x 128</div>
           </div>
 
-          <div
-            data-size="256"
-            data-src="./assets/images/image.png"
-            data-is-image="true"
-            class="aside-right__fsize"
-          >
+          <div data-size="32" data-src="./assets/data/32x32.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">256 x 256</div>
+            <div class="aside-right__fsize-name">32 x 32</div>
           </div>
-        </div>
-        <p class="aside-right__title">
-          Изменить размер рабочей области без изменения контента
-        </p>
-        <div class="aside-right__fsizes">
-          <div data-size="128" class="aside-right__fsize">
+
+          <div data-size="16" data-src="./assets/data/16x16.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">128 x 128</div>
+            <div class="aside-right__fsize-name">16 x 16</div>
           </div>
-          <div data-size="256" class="aside-right__fsize">
+
+          <div data-size="4" data-src="./assets/data/4x4.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">256 x 256</div>
+            <div class="aside-right__fsize-name">4 x 4</div>
           </div>
-          <div data-size="512" class="aside-right__fsize">
-            <div class="aside-right__fsize-bullet"></div>
-            <div class="aside-right__fsize-name">512 x 512</div>
-          </div>
-        </div>
-        <div class="town-tool">
-          <p class="aside-right__title">
-            Загрузить новое изображение
-          </p>
-          <input class="enter-town" placeholder="Enter town" type="text" />
-          <button class="load-town">Load</button>
         </div>
       </aside>
     </div>
