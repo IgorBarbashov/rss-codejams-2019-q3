@@ -1,7 +1,7 @@
 import { state, stateToStorage } from '../state';
 import renderRules from './rules';
 import errorHandler from '../errorHandler';
-import rgbToHex from '../helpers';
+import { rgbToHex, convertImageToArray } from '../helpers';
 
 const canvas = document.getElementById('canvas');
 canvas.width = state.baseSize;
@@ -22,30 +22,30 @@ function drawCanvas() {
   renderRules();
 }
 
-function convertImageToArray(img) {
-  const { currentSize } = state;
-  const tempCanvas = document.createElement('canvas');
-  tempCanvas.width = currentSize;
-  tempCanvas.height = currentSize;
-  const tempCtx = tempCanvas.getContext('2d');
-  tempCtx.drawImage(img, 0, 0, currentSize, currentSize);
-  const newArray = new Array(currentSize).fill(0).map((row, x) =>
-    new Array(currentSize).fill(0).map((cell, y) => {
-      const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
-      const hexColor = rgbToHex(rgbaColor);
-      return hexColor;
-    })
-  );
-  return newArray;
-}
+// function convertImageToArray(img) {
+//   const { currentSize } = state;
+//   const tempCanvas = document.createElement('canvas');
+//   tempCanvas.width = currentSize;
+//   tempCanvas.height = currentSize;
+//   const tempCtx = tempCanvas.getContext('2d');
+//   tempCtx.drawImage(img, 0, 0, currentSize, currentSize);
+//   const newArray = new Array(currentSize).fill(0).map((row, x) =>
+//     new Array(currentSize).fill(0).map((cell, y) => {
+//       const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
+//       const hexColor = rgbToHex(rgbaColor);
+//       return hexColor;
+//     })
+//   );
+//   return newArray;
+// }
 
 function drawImage() {
-  const { currentSource } = state;
+  const { currentSource, currentSize } = state;
   const img = new Image();
   img.src = currentSource;
   img.crossOrigin = 'Anonymous';
   img.addEventListener('load', () => {
-    state.currentCanvasState = convertImageToArray(img);
+    state.currentCanvasState = convertImageToArray(img, currentSize);
     drawCanvas();
     stateToStorage();
     errorHandler('hide');
@@ -110,7 +110,7 @@ async function resizeCurentCanvas() {
   tempImage.addEventListener('load', () => {
     tempCtx.drawImage(tempImage, 0, 0, currentSize, currentSize);
 
-    const newArray = convertImageToArray(tempImage);
+    const newArray = convertImageToArray(tempImage, currentSize);
     state.currentCanvasState = newArray;
     stateToStorage();
     drawCanvas();
