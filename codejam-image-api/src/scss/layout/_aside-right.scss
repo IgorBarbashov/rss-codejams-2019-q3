@@ -17,9 +17,13 @@
     text-align: center;
   }
 
-  .aside-right__fsizes {
+  & .aside-right__fsizes {
     background: $text-white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
+
+    &:first-of-type {
+      margin-bottom: 30px;
+    }
   }
 
   .aside-right__fsize-bullet {
