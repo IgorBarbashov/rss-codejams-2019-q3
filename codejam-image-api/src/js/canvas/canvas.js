@@ -21,27 +21,33 @@ function drawCanvas() {
   renderRules();
 }
 
+function convertImageToArray(img) {
+  const { currentSize } = state;
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = currentSize;
+  tempCanvas.height = currentSize;
+  const tempCtx = tempCanvas.getContext('2d');
+  tempCtx.drawImage(img, 0, 0, currentSize, currentSize);
+  const newArray = new Array(currentSize).fill(0).map((row, x) =>
+    new Array(currentSize).fill(0).map((cell, y) => {
+      const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
+      const hexColor = rgbaColor
+        .slice(0, 3)
+        .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
+        .slice(-6);
+      return hexColor;
+    })
+  );
+  return newArray;
+}
+
 function drawImage() {
-  const { currentSource, currentSize } = state;
+  const { currentSource } = state;
   const img = new Image();
   img.src = currentSource;
+  img.crossOrigin = 'Anonymous';
   img.addEventListener('load', () => {
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = currentSize;
-    tempCanvas.height = currentSize;
-    const tempCtx = tempCanvas.getContext('2d');
-    tempCtx.drawImage(img, 0, 0, currentSize, currentSize);
-    const newArray = new Array(currentSize).fill(0).map((row, x) =>
-      new Array(currentSize).fill(0).map((cell, y) => {
-        const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
-        const hexColor = rgbaColor
-          .slice(0, 3)
-          .reduce((acc, el) => `${acc}${el.toString(16)}`, '000000')
-          .slice(-6);
-        return hexColor;
-      }),
-    );
-    state.currentCanvasState = newArray;
+    state.currentCanvasState = convertImageToArray(img);
     drawCanvas();
     stateToStorage();
     errorHandler('hide');
@@ -94,6 +100,4 @@ function fillArea(i, j) {
   state.isDrawing = false;
 }
 
-export {
- drawCanvas, drawImage, getPixelColor, fillArea 
-};
+export { drawCanvas, drawImage, getPixelColor, fillArea };

@@ -1,13 +1,21 @@
 import { state, stateToStorage } from '../state';
-import { getLinkToImage } from '../api/unsplash';
+import getLinkToImage from '../api/unsplash';
+import { drawImage } from '../canvas/canvas';
 
 const townButton = document.querySelector('.load-town');
 const townInput = document.querySelector('.enter-town');
-townButton.addEventListener('click', () => console.log(townInput.value));
+
+townButton.addEventListener('click', async () => {
+  state.currentTown = townInput.value;
+  const newSource = await getLinkToImage();
+  state.currentSource = newSource;
+  drawImage();
+  stateToStorage();
+});
 
 function renderTownTool() {
-  const { isLoadImageEnable } = state;
-  console.log('isLoadImageEnable:', isLoadImageEnable);
+  const { isLoadImageEnable, currentTown } = state;
+  townInput.value = currentTown;
 
   if (isLoadImageEnable) {
     townButton.removeAttribute('disabled', isLoadImageEnable);
@@ -21,6 +29,7 @@ function renderTownTool() {
 function initTownTool() {
   const { currentSize } = state;
   state.isLoadImageEnable = currentSize >= 128;
+  stateToStorage();
   renderTownTool();
 }
 

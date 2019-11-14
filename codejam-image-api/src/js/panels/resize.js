@@ -18,16 +18,22 @@ const changeCanvasSize = async event => {
     }
   });
   state.currentSize = +pressedSize.dataset.size;
-  state.currentSource = pressedSize.dataset.src;
+
+  if (pressedSize.dataset.src) {
+    state.currentSource = pressedSize.dataset.src;
+    if (pressedSize.dataset.isImage === 'true') {
+      drawImage();
+    } else {
+      await fetchData();
+      drawCanvas();
+    }
+  } else {
+    console.log('просто меняем размер');
+    // resizeCureentCanvas();
+  }
+
   initTownTool();
   stateToStorage();
-
-  if (pressedSize.dataset.isImage === 'true') {
-    drawImage();
-  } else {
-    await fetchData();
-    drawCanvas();
-  }
 };
 
 function initSizes() {
