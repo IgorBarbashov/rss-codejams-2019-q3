@@ -1,7 +1,7 @@
 .aside-right {
   float: right;
   width: 290px;
-  padding: 80px 30px;
+  padding: 50px 30px;
 
   font-style: normal;
   font-weight: normal;
@@ -79,5 +79,11 @@
     &::placeholder {
       font-size: 12px;
     }
+  }
+
+  .town-tool button:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
   }
 }

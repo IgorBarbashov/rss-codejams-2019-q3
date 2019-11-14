@@ -6,7 +6,7 @@ const defaultCanvasState = new Array(defaultSize)
   .fill(0)
   .map(() => new Array(defaultSize).fill('cccccc'));
 
-let state = {
+const defaultState = {
   prevX: null,
   prevY: null,
   isDrawing: false,
@@ -22,6 +22,8 @@ let state = {
   currentTown: 'Nizhny Novgorod',
   isLoadImageEnable: false,
 };
+
+let state = { ...defaultState };
 
 function stateToStorage() {
   try {
@@ -91,4 +93,8 @@ async function initState() {
   }
 }
 
-export { stateToStorage, initState, fetchData, state };
+function resetState() {
+  state = { ...defaultState };
+}
+
+export { stateToStorage, initState, fetchData, state, resetState };

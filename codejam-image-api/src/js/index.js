@@ -1,4 +1,4 @@
-import { initState, state } from './state';
+import { initState, state, resetState } from './state';
 import { initTools, chooseToolByShortCut, applyTool } from './panels/tools';
 import { initSizes } from './panels/resize';
 import { initColors } from './panels/colors';
@@ -20,12 +20,12 @@ function initApp() {
       state.prevY = null;
       state.isDrawing = false;
     });
-    canvas.addEventListener('mousemove', event => {
+    canvas.addEventListener('mousemove', (event) => {
       if (state.isDrawing) {
         applyTool(event);
       }
     });
-    canvas.addEventListener('mouseenter', event => {
+    canvas.addEventListener('mouseenter', (event) => {
       if (state.isDrawing) {
         state.prevX = null;
         state.prevY = null;
@@ -36,4 +36,11 @@ function initApp() {
 }
 
 window.addEventListener('keyup', chooseToolByShortCut);
+const refresh = document.querySelector('.header__icon.refresh');
+refresh.addEventListener('click', () => {
+  localStorage.removeItem('savedState');
+  resetState();
+  initApp();
+});
+
 initApp();

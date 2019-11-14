@@ -15,7 +15,16 @@
           </div>
           <div class="header__title">CodeJam - Pallete</div>
           <div class="header__icon-menu">
-            <img src="../assets/images/icon-menu.svg" alt="Menu" />
+            <div class="header__icon refresh">
+              <img
+                class="header__icon_refresh"
+                src="../assets/images/refresh_24px.svg"
+                alt="Reset to defaults"
+              />
+            </div>
+            <div class="header__icon">
+              <img src="../assets/images/icon-menu.svg" alt="Menu" />
+            </div>
           </div>
         </div>
       </header>
@@ -59,6 +68,7 @@
             <div class="aside-left__tool-name">Transform</div>
           </div>
         </div>
+        <button>Grayscale</button>
         <div class="aside-left__colors">
           <div class="aside-left__color">
             <input id="custom-color" type="color" />
@@ -137,17 +147,14 @@
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">128 x 128</div>
           </div>
-
           <div data-size="32" data-src="./assets/data/32x32.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">32 x 32</div>
           </div>
-
           <div data-size="16" data-src="./assets/data/16x16.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">16 x 16</div>
           </div>
-
           <div data-size="4" data-src="./assets/data/4x4.json" class="aside-right__fsize">
             <div class="aside-right__fsize-bullet"></div>
             <div class="aside-right__fsize-name">4 x 4</div>
