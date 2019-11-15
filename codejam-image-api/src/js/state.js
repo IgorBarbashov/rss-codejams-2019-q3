@@ -24,6 +24,7 @@ const defaultState = {
   isLoadImageEnable: false,
   wasImageLoaded: true,
   isFetching: false,
+  isInputFocus: false,
 };
 
 let state = { ...defaultState };
@@ -86,6 +87,7 @@ async function initState() {
       state.prevY = null;
       state.currentSource = '';
       state.isFetching = false;
+      state.isInputFocus = false;
     } catch (e) {
       console.log('Ошибка восстановления сохраненных данных', e);
     }

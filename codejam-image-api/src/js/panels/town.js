@@ -5,6 +5,13 @@ import { drawImage } from '../canvas/canvas';
 const townButton = document.querySelector('.load-town');
 const townInput = document.querySelector('.enter-town');
 
+townInput.addEventListener('focusin', () => {
+  state.isInputFocus = true;
+});
+townInput.addEventListener('focusout', () => {
+  state.isInputFocus = false;
+});
+
 townButton.addEventListener('click', async () => {
   state.currentTown = townInput.value;
   const newSource = await getLinkToImage();

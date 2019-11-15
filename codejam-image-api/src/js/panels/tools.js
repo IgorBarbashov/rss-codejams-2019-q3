@@ -29,7 +29,7 @@ const chooseTool = (event) => {
 
 function chooseToolByShortCut(shortCut) {
   const pressedKey = shortCut.key.toLowerCase();
-  if (state.isDrawing || !allShortCuts.includes(pressedKey)) {
+  if (state.isInputFocus || state.isDrawing || !allShortCuts.includes(pressedKey)) {
     return;
   }
   toolsButtons.forEach((button) => {
