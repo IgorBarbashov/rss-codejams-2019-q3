@@ -1,5 +1,7 @@
 import { initTownTool } from './panels/town';
-import { initState, state, resetState } from './state';
+import {
+ initState, state, resetState, stateToStorage 
+} from './state';
 import { initTools, chooseToolByShortCut, applyTool } from './panels/tools';
 import { initSizes } from './panels/resize';
 import { initColors } from './panels/colors';
@@ -23,7 +25,7 @@ function initApp() {
     });
 
     const grayscale = document.querySelector('.grayscale-button');
-    grayscale.disabled = !state.wasImageLoaded;
+    grayscale.disabled = true;
     grayscale.addEventListener('click', convertToGrayscale);
 
     const canvas = document.getElementById('canvas-rules');
@@ -32,13 +34,19 @@ function initApp() {
       state.prevX = null;
       state.prevY = null;
       state.isDrawing = false;
+      stateToStorage();
     });
-    canvas.addEventListener('mousemove', event => {
+    canvas.addEventListener('mousemove', (event) => {
       if (state.isDrawing) {
         applyTool(event);
       }
     });
-    canvas.addEventListener('mouseenter', event => {
+    canvas.addEventListener('mouseleave', (event) => {
+      if (state.isDrawing) {
+        applyTool(event);
+      }
+    });
+    canvas.addEventListener('mouseenter', () => {
       if (state.isDrawing) {
         state.prevX = null;
         state.prevY = null;

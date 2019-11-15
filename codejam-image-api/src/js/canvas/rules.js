@@ -6,7 +6,9 @@ canvas.height = state.baseSize;
 const ctx = canvas.getContext('2d');
 
 function renderRules() {
-  const { currentSize, isShowRules, baseSize, maxGridCapacity } = state;
+  const {
+ currentSize, isShowRules, baseSize, maxGridCapacity 
+} = state;
   ctx.clearRect(0, 0, baseSize, baseSize);
 
   if (!isShowRules) {

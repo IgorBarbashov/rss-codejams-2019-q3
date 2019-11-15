@@ -1,12 +1,12 @@
 import { state, stateToStorage } from '../state';
-import { drawCanvas, getPixelColor, fillArea } from '../canvas/canvas';
+import {
+ drawCanvas, getPixelColor, fillArea, drawPixel 
+} from '../canvas/canvas';
 import { renderColors } from './colors';
 import renderRules from '../canvas/rules';
 
 const toolsButtons = document.querySelectorAll('.aside-left__tool:not(.aside-left__tool_disable)');
 const rulesInput = document.getElementById('tool-rules');
-const grayscale = document.querySelector('.grayscale-button');
-
 const allShortCuts = [...toolsButtons].map((el) => el.dataset.shortcut);
 
 const chooseTool = (event) => {
@@ -67,19 +67,21 @@ function initTools() {
   });
 }
 
-function calculateLine(x1, y1, x2, y2) {
+function calculateLine(x1, y1, x2, y2, currentColor) {
   const deltaX = Math.abs(x2 - x1);
   const deltaY = Math.abs(y2 - y1);
   const signX = x1 < x2 ? 1 : -1;
   const signY = y1 < y2 ? 1 : -1;
   let error = deltaX - deltaY;
 
-  state.currentCanvasState[x2][y2] = state.currentColor.slice(1);
+  state.currentCanvasState[x2][y2] = currentColor;
 
   let cX = x1;
   let cY = y1;
   while (cX !== x2 || cY !== y2) {
-    state.currentCanvasState[cX][cY] = state.currentColor.slice(1);
+    state.currentCanvasState[cX][cY] = currentColor;
+    drawPixel(cX, cY);
+
     const error2 = error * 2;
     if (error2 > -deltaY) {
       error -= deltaY;
@@ -92,6 +94,8 @@ function calculateLine(x1, y1, x2, y2) {
   }
 }
 
+const normalizeIndex = (index, number) => (index < 0 ? 0 : index >= number ? number - 1 : index);
+
 function applyTool(event) {
   if (event.which !== 1) {
     return;
@@ -102,19 +106,21 @@ function applyTool(event) {
 } = state;
 
   const { layerX, layerY } = event;
-  const i = Math.floor((layerX / baseSize) * currentSize);
-  const j = Math.floor((layerY / baseSize) * currentSize);
+  const rawI = Math.floor((layerX / baseSize) * currentSize);
+  const rawJ = Math.floor((layerY / baseSize) * currentSize);
+  const i = event.type === 'mouseleave' ? normalizeIndex(rawI, currentSize) : rawI;
+  const j = event.type === 'mouseleave' ? normalizeIndex(rawJ, currentSize) : rawJ;
 
   switch (currentTool) {
     case 'pencil':
       if (state.prevX === i && state.prevY === j) {
         break;
       } else if (state.prevX === null || state.prevY === null) {
-        state.currentCanvasState[i][j] = currentColor.slice(1);
-        drawCanvas();
+        state.currentCanvasState[i][j] = currentColor;
+        drawPixel(i, j);
       } else {
-        calculateLine(state.prevX, state.prevY, i, j);
-        drawCanvas();
+        state.currentCanvasState[i][j] = currentColor;
+        calculateLine(state.prevX, state.prevY, i, j, currentColor);
       }
       state.prevX = i;
       state.prevY = j;
@@ -122,16 +128,19 @@ function applyTool(event) {
     case 'paint-bucket':
       fillArea(i, j);
       drawCanvas();
+      stateToStorage();
       break;
     case 'choose-color':
-      state.prevColor = state.currentColor;
-      state.currentColor = getPixelColor(layerX, layerY);
-      renderColors();
+      if (event.type === 'mousedown') {
+        state.prevColor = state.currentColor;
+        state.currentColor = getPixelColor(layerX, layerY);
+        renderColors();
+        stateToStorage();
+      }
       break;
     default:
       break;
   }
-  stateToStorage();
 }
 
 export {

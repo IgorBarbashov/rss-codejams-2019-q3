@@ -4,13 +4,13 @@ import { initTownTool } from './town';
 
 const sizeButtons = document.querySelectorAll('.aside-right__fsize');
 
-const changeCanvasSize = async event => {
+const changeCanvasSize = async (event) => {
   const pressedSize = event.currentTarget;
   if (pressedSize.classList.contains('active')) {
     return;
   }
   const newSize = +pressedSize.dataset.size;
-  sizeButtons.forEach(button => {
+  sizeButtons.forEach((button) => {
     if (+button.dataset.size === newSize) {
       button.classList.add('active');
     } else {
@@ -37,7 +37,7 @@ const changeCanvasSize = async event => {
 
 function initSizes() {
   const { currentSize } = state;
-  sizeButtons.forEach(button => {
+  sizeButtons.forEach((button) => {
     button.addEventListener('click', changeCanvasSize);
     if (button.dataset.size === `${currentSize}`) {
       button.classList.add('active');

@@ -5,7 +5,7 @@ import { renderTownTool } from './panels/town';
 const defaultSize = 128;
 const defaultCanvasState = new Array(defaultSize)
   .fill(0)
-  .map(() => new Array(defaultSize).fill('cccccc'));
+  .map(() => new Array(defaultSize).fill('#cccccc'));
 
 const defaultState = {
   prevX: null,
@@ -22,7 +22,6 @@ const defaultState = {
   prevColor: '#ffeb3b',
   currentTown: 'Nizhny Novgorod',
   isLoadImageEnable: false,
-  wasImageLoaded: true,
   isFetching: false,
   isInputFocus: false,
 };
@@ -60,7 +59,7 @@ async function fetchData() {
     } else {
       const data = await response.json();
       state.currentCanvasState = data.map(row =>
-        row.map(cell => (Array.isArray(cell) ? rgbToHex(cell) : cell))
+        row.map(cell => (Array.isArray(cell) ? rgbToHex(cell) : `#${cell}`))
       );
     }
     stateToStorage();

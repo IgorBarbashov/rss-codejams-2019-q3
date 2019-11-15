@@ -15,16 +15,18 @@ async function getLinkToImage() {
   try {
     const response = await fetch(
       `${API_URL}${GET_RND_PHOTO}?${resizeQuery}&query=town,${currentTown}&client_id=${API_ACCESS_KEY}`,
-      { mode: 'cors' }
+      { mode: 'cors' },
     );
     if (!response.ok) {
       throw new Error('Ошибка получения адреса картинки');
     }
+
     const data = await response.json();
     const url = `${data.urls.custom.split('?')[0]}?${resizeQuery}`;
+    document.querySelector('.grayscale-button').disabled = false;
     return url;
   } catch (e) {
-    console.log(e);
+    console.log('Ошибка при получении данных по API', e);
   } finally {
     state.isFetching = false;
     stateToStorage();
