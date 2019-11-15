@@ -1,9 +1,9 @@
+import { initTownTool } from './panels/town';
 import { initState, state, resetState } from './state';
 import { initTools, chooseToolByShortCut, applyTool } from './panels/tools';
 import { initSizes } from './panels/resize';
 import { initColors } from './panels/colors';
 import { drawCanvas, convertToGrayscale } from './canvas/canvas';
-import { initTownTool } from './panels/town';
 
 function initApp() {
   initState().then(() => {

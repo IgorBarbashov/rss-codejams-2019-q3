@@ -2,6 +2,7 @@ import { state, stateToStorage } from '../state';
 import renderRules from './rules';
 import errorHandler from '../errorHandler';
 import { rgbToHex, convertImageToArray } from '../helpers';
+import { renderTownTool } from '../panels/town';
 
 const canvas = document.getElementById('canvas');
 canvas.width = state.baseSize;
@@ -23,43 +24,42 @@ function drawCanvas() {
 }
 
 function convertToGrayscale() {
-  const { currentSize, currentCanvasState } = state;
-  state.currentCanvasState = currentCanvasState.map((row) =>
-    row.map((el) => {
-      console.log('el', el);
+  const { currentCanvasState } = state;
+  state.currentCanvasState = currentCanvasState.map(row =>
+    row.map(el => {
       const r = parseInt(el.substr(0, 2), 16);
-      console.log('r', r);
       const g = parseInt(el.substr(2, 2), 16);
-      console.log('el.slice(2, 2)', el.substr(2, 2));
-      console.log('g', g);
       const b = parseInt(el.substr(4, 2), 16);
-      console.log('b', b);
       const avg = Math.floor((r + g + b) / 3);
-      console.log('avg', avg);
       const hexAvg = avg.toString(16);
-      console.log('hexAvg', hexAvg);
       const hexColor = hexAvg.repeat(3);
-      console.log('hexColor', hexColor);
       return hexColor;
-    }),
+    })
   );
   stateToStorage();
   drawCanvas();
 }
 
 function drawImage() {
+  state.isFetching = true;
+  renderTownTool();
+
   const { currentSource, currentSize } = state;
   const img = new Image();
   img.src = currentSource;
   img.crossOrigin = 'Anonymous';
   img.addEventListener('load', () => {
     state.currentCanvasState = convertImageToArray(img, currentSize);
+    state.isFetching = false;
+    renderTownTool();
     drawCanvas();
     stateToStorage();
     errorHandler('hide');
   });
   img.addEventListener('error', () => {
     errorHandler('show');
+    state.isFetching = false;
+    renderTownTool();
   });
   renderRules();
 }
@@ -113,6 +113,7 @@ async function resizeCurentCanvas() {
 
   const currentImage = canvas.toDataURL();
   const tempImage = new Image();
+  tempImage.crossOrigin = 'Anonymous';
   tempImage.src = currentImage;
 
   tempImage.addEventListener('load', () => {
@@ -126,6 +127,4 @@ async function resizeCurentCanvas() {
   });
 }
 
-export {
- drawCanvas, drawImage, getPixelColor, fillArea, resizeCurentCanvas, convertToGrayscale 
-};
+export { drawCanvas, drawImage, getPixelColor, fillArea, resizeCurentCanvas, convertToGrayscale };

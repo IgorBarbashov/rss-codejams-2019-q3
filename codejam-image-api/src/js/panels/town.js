@@ -14,10 +14,10 @@ townButton.addEventListener('click', async () => {
 });
 
 function renderTownTool() {
-  const { isLoadImageEnable, currentTown } = state;
+  const { isLoadImageEnable, currentTown, isFetching } = state;
   townInput.value = currentTown;
 
-  if (isLoadImageEnable) {
+  if (isLoadImageEnable && !isFetching) {
     townButton.removeAttribute('disabled', isLoadImageEnable);
     townInput.removeAttribute('disabled', isLoadImageEnable);
   } else {

@@ -1,5 +1,6 @@
 import errorHandler from './errorHandler';
 import { rgbToHex, convertImageToArray, onloadToPromise } from './helpers';
+import { renderTownTool } from './panels/town';
 
 const defaultSize = 128;
 const defaultCanvasState = new Array(defaultSize)
@@ -22,6 +23,7 @@ const defaultState = {
   currentTown: 'Nizhny Novgorod',
   isLoadImageEnable: false,
   wasImageLoaded: true,
+  isFetching: false,
 };
 
 let state = { ...defaultState };
@@ -36,9 +38,12 @@ function stateToStorage() {
 }
 
 async function fetchData() {
+  state.isFetching = true;
+  renderTownTool();
+
   const { currentSource, currentSize } = state;
   try {
-    const response = await fetch(currentSource);
+    const response = await fetch(currentSource, { mode: 'cors' });
     if (!response.ok) {
       throw new Error('Server response is not OK');
     }
@@ -46,6 +51,7 @@ async function fetchData() {
       const blob = await response.blob();
       const img = document.createElement('img');
       const imgPromise = onloadToPromise(img);
+      img.crossOrigin = 'Anonymous';
       img.src = URL.createObjectURL(blob);
       const data = await imgPromise;
       const dataInArray = convertImageToArray(data, currentSize);
@@ -63,6 +69,9 @@ async function fetchData() {
     state.currentCanvasState = defaultCanvasState;
     stateToStorage();
     errorHandler('show');
+  } finally {
+    state.isFetching = false;
+    renderTownTool();
   }
 }
 
@@ -75,7 +84,8 @@ async function initState() {
       state.isDrawing = false;
       state.prevX = null;
       state.prevY = null;
-      currentSource = '';
+      state.currentSource = '';
+      state.isFetching = false;
     } catch (e) {
       console.log('Ошибка восстановления сохраненных данных', e);
     }
