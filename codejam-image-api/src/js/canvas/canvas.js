@@ -25,13 +25,15 @@ function drawCanvas() {
 
 function convertToGrayscale() {
   const { currentCanvasState } = state;
+  const addZeros = (str, count = 2) => `${'0'.repeat(count)}${str}`.slice(count * -1);
+
   state.currentCanvasState = currentCanvasState.map(row =>
     row.map(el => {
       const r = parseInt(el.substr(0, 2), 16);
       const g = parseInt(el.substr(2, 2), 16);
       const b = parseInt(el.substr(4, 2), 16);
       const avg = Math.floor((r + g + b) / 3);
-      const hexAvg = avg.toString(16);
+      const hexAvg = addZeros(avg.toString(16));
       const hexColor = hexAvg.repeat(3);
       return hexColor;
     })
