@@ -30,6 +30,7 @@ function initApp() {
 
     const canvas = document.getElementById('canvas-rules');
     canvas.addEventListener('mousedown', applyTool);
+
     window.addEventListener('mouseup', () => {
       state.prevX = null;
       state.prevY = null;

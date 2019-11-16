@@ -5,6 +5,7 @@ import { initTownTool } from './town';
 const sizeButtons = document.querySelectorAll('.aside-right__fsize');
 
 const changeCanvasSize = async (event) => {
+  state.isDrawing = true;
   const pressedSize = event.currentTarget;
   if (pressedSize.classList.contains('active')) {
     return;
@@ -22,15 +23,16 @@ const changeCanvasSize = async (event) => {
   if (pressedSize.dataset.src) {
     state.currentSource = pressedSize.dataset.src;
     if (pressedSize.dataset.isImage === 'true') {
-      drawImage();
+      await drawImage();
     } else {
       await fetchData();
       drawCanvas();
     }
   } else {
-    resizeCurentCanvas();
+    await resizeCurentCanvas();
   }
 
+  state.isDrawing = false;
   initTownTool();
   stateToStorage();
 };

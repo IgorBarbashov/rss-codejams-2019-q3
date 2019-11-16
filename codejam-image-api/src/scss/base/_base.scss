@@ -35,6 +35,10 @@ body {
   background: $text-white;
 }
 
+.wait * {
+  cursor: wait !important;
+}
+
 .container {
   min-width: $width-container-min;
   max-width: $width-container-max;

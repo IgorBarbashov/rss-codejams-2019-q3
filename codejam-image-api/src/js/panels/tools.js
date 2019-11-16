@@ -96,7 +96,7 @@ function calculateLine(x1, y1, x2, y2, currentColor) {
 
 const normalizeIndex = (index, number) => (index < 0 ? 0 : index >= number ? number - 1 : index);
 
-function applyTool(event) {
+async function applyTool(event) {
   if (event.which !== 1) {
     return;
   }
@@ -126,9 +126,10 @@ function applyTool(event) {
       state.prevY = j;
       break;
     case 'paint-bucket':
-      fillArea(i, j);
+      await fillArea(i, j);
       drawCanvas();
       stateToStorage();
+
       break;
     case 'choose-color':
       if (event.type === 'mousedown') {

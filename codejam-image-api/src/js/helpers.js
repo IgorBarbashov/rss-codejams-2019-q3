@@ -1,3 +1,7 @@
+function preloaderOnMouse(state = false) {
+  document.body.classList.toggle('wait', state);
+}
+
 function onloadToPromise(obj) {
   return new Promise((resolve, reject) => {
     obj.onload = () => resolve(obj);
@@ -36,4 +40,6 @@ function convertImageToArray(img, size) {
   }
 }
 
-export { rgbToHex, convertImageToArray, onloadToPromise };
+export {
+ rgbToHex, convertImageToArray, onloadToPromise, preloaderOnMouse 
+};

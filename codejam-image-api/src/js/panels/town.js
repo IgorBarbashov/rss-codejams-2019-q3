@@ -1,6 +1,7 @@
 import { state, stateToStorage } from '../state';
 import getLinkToImage from '../api/unsplash';
 import { drawImage } from '../canvas/canvas';
+import { preloaderOnMouse } from '../helpers';
 
 const townButton = document.querySelector('.load-town');
 const townInput = document.querySelector('.enter-town');
@@ -13,10 +14,11 @@ townInput.addEventListener('focusout', () => {
 });
 
 townButton.addEventListener('click', async () => {
+  preloaderOnMouse(true);
   state.currentTown = townInput.value;
   const newSource = await getLinkToImage();
   state.currentSource = newSource;
-  drawImage();
+  await drawImage();
   stateToStorage();
 });
 
