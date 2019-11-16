@@ -81,7 +81,7 @@
       left: 1px;
     }
 
-    &[disabled] {
+    &.disable {
       color: $text-disabled;
     }
   }

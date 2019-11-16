@@ -25,7 +25,8 @@ function initApp() {
     });
 
     const grayscale = document.querySelector('.grayscale-button');
-    grayscale.disabled = true;
+    grayscale.classList.add('disable');
+    state.wasImageLoaded = false;
     grayscale.addEventListener('click', convertToGrayscale);
 
     const canvas = document.getElementById('canvas-rules');

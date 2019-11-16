@@ -31,6 +31,10 @@ function drawCanvas() {
 }
 
 async function convertToGrayscale() {
+  if (!state.wasImageLoaded) {
+    alert('Сначала загрузите картинку с сервера');
+    return;
+  }
   preloaderOnMouse(true);
   state.isDrawing = true;
   const { currentCanvasState } = state;

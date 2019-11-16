@@ -24,6 +24,7 @@ const defaultState = {
   isLoadImageEnable: false,
   isFetching: false,
   isInputFocus: false,
+  wasImageLoaded: false,
 };
 
 let state = { ...defaultState };

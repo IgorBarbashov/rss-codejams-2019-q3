@@ -23,7 +23,8 @@ async function getLinkToImage() {
 
     const data = await response.json();
     const url = `${data.urls.custom.split('?')[0]}?${resizeQuery}`;
-    document.querySelector('.grayscale-button').disabled = false;
+    document.querySelector('.grayscale-button').classList.remove('disable');
+    state.wasImageLoaded = true;
     return url;
   } catch (e) {
     console.log('Ошибка при получении данных по API', e);
