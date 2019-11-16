@@ -1,6 +1,7 @@
 import errorHandler from './errorHandler';
 import { rgbToHex, convertImageToArray, onloadToPromise } from './helpers';
 import { renderTownTool } from './panels/town';
+import { authStateToLocalStorage, resetAuthState } from './api/github';
 
 const defaultSize = 128;
 const defaultCanvasState = new Array(defaultSize)
@@ -33,6 +34,7 @@ function stateToStorage() {
   try {
     const stringifiedState = JSON.stringify(state);
     localStorage.setItem('savedState', stringifiedState);
+    authStateToLocalStorage();
   } catch (e) {
     console.log('Ошибка при сохранении данных', e);
   }
@@ -108,6 +110,7 @@ async function initState() {
 
 function resetState() {
   state = { ...defaultState };
+  resetAuthState();
 }
 
 export { stateToStorage, initState, fetchData, state, resetState };
