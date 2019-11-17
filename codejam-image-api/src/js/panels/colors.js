@@ -7,7 +7,7 @@ const currentColorMarker = document.querySelector('.color-example_current');
 const prevColorMarker = document.querySelector('.color-example_prev');
 const customColorInput = document.getElementById('custom-color');
 
-function renderColors(...props) {
+function renderColors() {
   const { currentColor, prevColor } = state;
   currentColorMarker.style = `background: ${currentColor}`;
   prevColorMarker.style = `background: ${prevColor}`;

@@ -26,14 +26,14 @@ function convertImageToArray(img, size) {
     tempCanvas.height = size;
     const tempCtx = tempCanvas.getContext('2d');
     tempCtx.drawImage(img, 0, 0, size, size);
-    const newArray = new Array(size).fill(0).map((row, x) =>
-      new Array(size).fill(0).map((cell, y) => {
-        const rgbaColor = tempCtx.getImageData(x, y, 1, 1).data;
-        const hexColor = rgbToHex(rgbaColor);
-        return hexColor;
-      }),
-    );
-    return newArray;
+    const tempImageData = tempCtx.getImageData(0, 0, size, size).data;
+    const tempArray = new Array(size).fill(0).map(() => new Array(size).fill(0));
+    for (let i = 0; i < tempImageData.length; i += 4) {
+      const x = Math.floor(i / 4 / size);
+      const y = (i / 4) % size;
+      tempArray[y][x] = rgbToHex([tempImageData[i], tempImageData[i + 1], tempImageData[i + 2]]);
+    }
+    return tempArray;
   } catch (e) {
     console.log('Ошибка пересчета изображения в массив', e);
     throw e;
