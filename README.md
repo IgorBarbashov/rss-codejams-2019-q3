@@ -23,3 +23,4 @@ To run particular project:
 Completed tasks:
 
 - [Codejam Palette](https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3/tree/codejam-palette/codejam-palette)
+- [Codejam Image API](https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3/tree/codejam-image-api/codejam-image-api)
