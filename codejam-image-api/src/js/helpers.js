@@ -1,7 +1,7 @@
 function preloaderOnMouse(state = false) {
   document.body.classList.toggle('wait', state);
 }
-
+/* eslint-disable no-param-reassign */
 function onloadToPromise(obj) {
   return new Promise((resolve, reject) => {
     obj.onload = () => resolve(obj);
@@ -35,11 +35,11 @@ function convertImageToArray(img, size) {
     }
     return tempArray;
   } catch (e) {
-    console.log('Ошибка пересчета изображения в массив', e);
+    console.err('Ошибка пересчета изображения в массив', e);
     throw e;
   }
 }
 
 export {
- rgbToHex, convertImageToArray, onloadToPromise, preloaderOnMouse 
+  rgbToHex, convertImageToArray, onloadToPromise, preloaderOnMouse,
 };

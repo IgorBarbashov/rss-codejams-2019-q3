@@ -7,8 +7,8 @@ const ctx = canvas.getContext('2d');
 
 function renderRules() {
   const {
- currentSize, isShowRules, baseSize, maxGridCapacity 
-} = state;
+    currentSize, isShowRules, baseSize, maxGridCapacity,
+  } = state;
   ctx.clearRect(0, 0, baseSize, baseSize);
 
   if (!isShowRules) {

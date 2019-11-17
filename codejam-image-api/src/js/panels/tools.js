@@ -1,6 +1,6 @@
 import { state, stateToStorage } from '../state';
 import {
- drawCanvas, getPixelColor, fillArea, drawPixel 
+  drawCanvas, getPixelColor, fillArea, drawPixel,
 } from '../canvas/canvas';
 import { renderColors } from './colors';
 import renderRules from '../canvas/rules';
@@ -94,6 +94,7 @@ function calculateLine(x1, y1, x2, y2, currentColor) {
   }
 }
 
+/* eslint-disable-next-line */
 const normalizeIndex = (index, number) => (index < 0 ? 0 : index >= number ? number - 1 : index);
 
 async function applyTool(event) {
@@ -102,8 +103,8 @@ async function applyTool(event) {
   }
   state.isDrawing = true;
   const {
- baseSize, currentSize, currentColor, currentTool 
-} = state;
+    baseSize, currentSize, currentColor, currentTool,
+  } = state;
 
   const { layerX, layerY } = event;
   const rawI = Math.floor((layerX / baseSize) * currentSize);
@@ -145,5 +146,5 @@ async function applyTool(event) {
 }
 
 export {
- chooseToolByShortCut, toolsButtons, chooseTool, initTools, applyTool 
+  chooseToolByShortCut, toolsButtons, chooseTool, initTools, applyTool,
 };

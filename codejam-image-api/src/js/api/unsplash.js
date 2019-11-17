@@ -28,6 +28,7 @@ async function getLinkToImage() {
     return url;
   } catch (e) {
     console.log('Ошибка при получении данных по API', e);
+    throw e;
   } finally {
     state.isFetching = false;
     stateToStorage();

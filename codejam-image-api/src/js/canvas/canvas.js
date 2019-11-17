@@ -2,7 +2,7 @@ import { state, stateToStorage } from '../state';
 import renderRules from './rules';
 import errorHandler from '../errorHandler';
 import {
- rgbToHex, convertImageToArray, preloaderOnMouse, onloadToPromise 
+  rgbToHex, convertImageToArray, preloaderOnMouse, onloadToPromise,
 } from '../helpers';
 import { renderTownTool } from '../panels/town';
 
@@ -32,6 +32,7 @@ function drawCanvas() {
 
 async function convertToGrayscale() {
   if (!state.wasImageLoaded) {
+    /* eslint-disable-next-line */
     alert('Сначала загрузите картинку с сервера');
     return;
   }
@@ -42,17 +43,15 @@ async function convertToGrayscale() {
 
   await new Promise((resolve) => {
     setTimeout(async () => {
-      state.currentCanvasState = currentCanvasState.map((row) =>
-        row.map((el) => {
-          const r = parseInt(el.substr(1, 2), 16);
-          const g = parseInt(el.substr(3, 2), 16);
-          const b = parseInt(el.substr(5, 2), 16);
-          const avg = Math.floor((r + g + b) / 3);
-          const hexAvg = addZeros(avg.toString(16));
-          const hexColor = `${hexAvg.repeat(3)}`;
-          return `#${hexColor}`;
-        }),
-      );
+      state.currentCanvasState = currentCanvasState.map((row) => row.map((el) => {
+        const r = parseInt(el.substr(1, 2), 16);
+        const g = parseInt(el.substr(3, 2), 16);
+        const b = parseInt(el.substr(5, 2), 16);
+        const avg = Math.floor((r + g + b) / 3);
+        const hexAvg = addZeros(avg.toString(16));
+        const hexColor = `${hexAvg.repeat(3)}`;
+        return `#${hexColor}`;
+      }));
       stateToStorage();
       drawCanvas();
       resolve();

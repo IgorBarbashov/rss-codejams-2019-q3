@@ -18,19 +18,19 @@ const defaultAuthState = {
   name: null,
 };
 
-let authState = { ...defaultAuthState };
+const authState = { ...defaultAuthState };
 
 function initAuthState() {
   const savedAuthState = localStorage.getItem('authState');
   try {
     if (savedAuthState) {
       const parsedAuthState = JSON.parse(savedAuthState);
-      authState = parsedAuthState;
+      Object.keys(authState).forEach((key) => { authState[key] = parsedAuthState[key]; });
     } else {
-      authState = { ...defaultAuthState };
+      Object.keys(authState).forEach((key) => { authState[key] = defaultAuthState[key]; });
     }
   } catch (e) {
-    authState = { ...defaultAuthState };
+    Object.keys(authState).forEach((key) => { authState[key] = defaultAuthState[key]; });
     console.log('Ошибка восстановления аутентификационных данных', e);
   }
 }
@@ -52,7 +52,7 @@ async function renderAuthButton() {
   clientIcon.setAttribute('alt', label);
   clientIcon.src = icon;
   if (authState.isAuth) {
-    clientIcon.onerror = () => (clientIc.src = defaultIcon);
+    clientIcon.onerror = () => { clientIcon.src = defaultIcon; };
     logoutButton.classList.remove('hide');
   } else {
     logoutButton.classList.add('hide');
@@ -60,7 +60,7 @@ async function renderAuthButton() {
 }
 
 function resetAuthState() {
-  authState = { ...defaultAuthState };
+  Object.keys(authState).forEach((key) => { authState[key] = defaultAuthState[key]; });
   authStateToLocalStorage();
   renderAuthButton();
 }
@@ -75,6 +75,7 @@ authButton.addEventListener('click', (e) => {
   if (authState.isAuth) {
     return;
   }
+  /* eslint-disable-next-line */
   const authenticator = new netlify.default({ site_id: NETLIFY_SITE_ID });
   authenticator.authenticate({ provider: 'github', scope: 'user' }, async (err, data) => {
     if (err) {
@@ -92,13 +93,13 @@ authButton.addEventListener('click', (e) => {
         if (!response.ok) {
           throw new Error('Не удалось авторизоваться через GitHub');
         }
-        const data = await response.json();
+        const jsonData = await response.json();
         authState.isAuth = true;
-        authState.avatar = data.avatar_url;
-        authState.name = data.name;
-      } catch (e) {
-        authState = { ...defaultAuthState };
-        console.log('Ошибка получения данных с GitHub', e);
+        authState.avatar = jsonData.avatar_url;
+        authState.name = jsonData.name;
+      } catch (error) {
+        Object.keys(authState).forEach((key) => { authState[key] = defaultAuthState[key]; });
+        console.log('Ошибка получения данных с GitHub', error);
       } finally {
         renderAuthButton();
         authStateToLocalStorage();
@@ -108,5 +109,5 @@ authButton.addEventListener('click', (e) => {
 });
 
 export {
- authState, renderAuthButton, authStateToLocalStorage, initAuthState, resetAuthState 
+  authState, renderAuthButton, authStateToLocalStorage, initAuthState, resetAuthState,
 };

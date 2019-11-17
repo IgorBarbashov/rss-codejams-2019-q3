@@ -1,6 +1,6 @@
 import { initTownTool } from './panels/town';
 import {
- initState, state, resetState, stateToStorage 
+  initState, state, resetState, stateToStorage,
 } from './state';
 import { initTools, chooseToolByShortCut, applyTool } from './panels/tools';
 import { initSizes } from './panels/resize';
@@ -51,7 +51,7 @@ function initApp() {
         applyTool(event);
       }
     });
-    canvas.addEventListener('mouseenter', () => {
+    canvas.addEventListener('mouseenter', (event) => {
       if (state.isDrawing) {
         state.prevX = null;
         state.prevY = null;

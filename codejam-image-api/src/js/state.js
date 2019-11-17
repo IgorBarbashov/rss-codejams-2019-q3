@@ -28,7 +28,7 @@ const defaultState = {
   wasImageLoaded: false,
 };
 
-let state = { ...defaultState };
+const state = { ...defaultState };
 
 function stateToStorage() {
   try {
@@ -61,13 +61,11 @@ async function fetchData() {
       state.currentCanvasState = dataInArray;
     } else {
       const data = await response.json();
-      state.currentCanvasState = data.map(row =>
-        row.map(cell => (Array.isArray(cell) ? rgbToHex(cell) : `#${cell}`))
-      );
+      state.currentCanvasState = data.map((row) => row.map((cell) => (Array.isArray(cell) ? rgbToHex(cell) : `#${cell}`)));
     }
     stateToStorage();
     errorHandler('hide');
-  } catch {
+  } catch (e) {
     state.currentSize = defaultSize;
     state.currentCanvasState = defaultCanvasState;
     stateToStorage();
@@ -83,7 +81,7 @@ async function initState() {
   if (savedState) {
     try {
       const parsedState = JSON.parse(savedState);
-      state = parsedState;
+      Object.keys(state).forEach((key) => { state[key] = parsedState[key]; });
       state.isDrawing = false;
       state.prevX = null;
       state.prevY = null;
@@ -96,9 +94,8 @@ async function initState() {
   }
   if (state.currentCanvasState === null) {
     const sizeButtons = document.querySelectorAll('.aside-right__fsize');
-    const sizeButtonsWithSource = [...sizeButtons].filter(el => {
-      return +el.dataset.size === state.currentSize && el.dataset.src;
-    });
+    const sizeButtonsWithSource = [...sizeButtons]
+      .filter((el) => parseInt(el.dataset.size, 10) === state.currentSize && el.dataset.src);
     if (sizeButtonsWithSource.length) {
       state.currentSource = sizeButtonsWithSource[0].dataset.src;
       await fetchData();
@@ -109,8 +106,10 @@ async function initState() {
 }
 
 function resetState() {
-  state = { ...defaultState };
+  Object.keys(state).forEach((key) => { state[key] = defaultState[key]; });
   resetAuthState();
 }
 
-export { stateToStorage, initState, fetchData, state, resetState };
+export {
+  stateToStorage, initState, fetchData, state, resetState,
+};
