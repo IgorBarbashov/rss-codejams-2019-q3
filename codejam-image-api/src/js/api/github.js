@@ -96,7 +96,7 @@ authButton.addEventListener('click', (e) => {
         const jsonData = await response.json();
         authState.isAuth = true;
         authState.avatar = jsonData.avatar_url;
-        authState.name = jsonData.name;
+        authState.name = jsonData.name || jsonData.login;
       } catch (error) {
         Object.keys(authState).forEach((key) => { authState[key] = defaultAuthState[key]; });
         console.log('Ошибка получения данных с GitHub', error);
