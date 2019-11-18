@@ -28,7 +28,7 @@ const chooseTool = (event) => {
 };
 
 function chooseToolByShortCut(shortCut) {
-  const pressedKey = shortCut.key.toLowerCase();
+  const pressedKey = shortCut.code;
   if (state.isInputFocus || state.isDrawing || !allShortCuts.includes(pressedKey)) {
     return;
   }
