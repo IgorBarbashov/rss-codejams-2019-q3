@@ -3,7 +3,7 @@ import { renderTownTool } from '../panels/town';
 
 const API_URL = 'https://api.unsplash.com';
 const GET_RND_PHOTO = '/photos/random';
-const API_ACCESS_KEY = 'b5fd9af85c9e3187e9d8a1fa3e90f844f3aca08b0b5593b82186881e55dd14e7';
+const API_ACCESS_KEY = 'a20766416cd49e7e0867bacd51e4e24ea537ecda23853cc7c291461e79eeeb46';
 
 async function getLinkToImage() {
   state.isFetching = true;
