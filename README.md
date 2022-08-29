@@ -1,8 +1,8 @@
 # igorbarbashov-RS2019Q3
 
 Completed tasks:
-- [Codejam Palette](https://github.com/IgorBarbashov/rss-codejams-2019-q3/tree/master/codejam-image-api)
-- [Codejam Image API](https://github.com/IgorBarbashov/rss-codejams-2019-q3/tree/master/codejam-palette)
+- [Codejam Image API](https://github.com/IgorBarbashov/rss-codejams-2019-q3/tree/master/codejam-image-api)
+- [Codejam Palette](https://github.com/IgorBarbashov/rss-codejams-2019-q3/tree/master/codejam-palette)
 
 
 Branch 'main' contains pre-installed configures for linters (csscombo, htmlhint, eslint, prettier) for all projects.
