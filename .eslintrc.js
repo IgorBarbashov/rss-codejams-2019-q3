@@ -12,5 +12,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    'import/no-cycle': 'off',
+    'no-console': 'off',
+  },
 };
