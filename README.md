@@ -1,6 +1,9 @@
 # igorbarbashov-RS2019Q3
 
-Private repository for @igorbarbashov
+Completed tasks:
+- [Codejam Palette](https://github.com/IgorBarbashov/rss-codejams-2019-q3/tree/master/codejam-image-api)
+- [Codejam Image API](https://github.com/IgorBarbashov/rss-codejams-2019-q3/tree/master/codejam-palette)
+
 
 Branch 'main' contains pre-installed configures for linters (csscombo, htmlhint, eslint, prettier) for all projects.
 
@@ -20,7 +23,3 @@ To run particular project:
 - Use 'npm install' to install all dependencies
 - Use 'npm start' to start project
 
-Completed tasks:
-
-- [Codejam Palette](https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3/tree/codejam-palette/codejam-palette)
-- [Codejam Image API](https://github.com/rolling-scopes-school/igorbarbashov-RS2019Q3/tree/codejam-image-api/codejam-image-api)
