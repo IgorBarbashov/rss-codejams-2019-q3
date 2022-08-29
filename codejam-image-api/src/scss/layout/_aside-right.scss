@@ -1,7 +1,7 @@
 .aside-right {
   float: right;
   width: 290px;
-  padding: 80px 30px;
+  padding: 50px 30px;
 
   font-style: normal;
   font-weight: normal;
@@ -17,7 +17,9 @@
     text-align: center;
   }
 
-  .aside-right__fsizes {
+  & .aside-right__fsizes {
+    margin-bottom: 30px;
+
     background: $text-white;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
   }
@@ -50,5 +52,38 @@
 
   .aside-right__fsize:not(.active):hover {
     background: #eeeeee;
+  }
+
+  .town-tool input,
+  .town-tool button {
+    float: left;
+    padding: 5px;
+
+    color: $text-grey;
+
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.24), 0 0 4px rgba(0, 0, 0, 0.12);
+
+    &[disabled] {
+      color: $text-disabled;
+    }
+  }
+
+  .town-tool input {
+    width: 75%;
+    height: 28px;
+    margin-right: 5%;
+    margin-bottom: 30px;
+
+    &::placeholder {
+      font-size: 12px;
+    }
+  }
+
+  .town-tool button:active {
+    position: relative;
+    top: 1px;
+    left: 1px;
   }
 }

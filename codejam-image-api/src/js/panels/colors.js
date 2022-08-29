@@ -26,7 +26,7 @@ function customColorClick() {
   customColorInput.click();
 }
 
-function cnahgeColor() {
+function cnahgeColor(event) {
   const pressedButton = event.currentTarget;
   if (pressedButton === currentColorButton) {
     customColorInput.value = state.currentColor;
